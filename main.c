@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 14:54:36 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/24 14:54:48 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/04/24 14:57:56 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/04/24 14:57:58 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-int	ft_start_printf(va_list arg, const char *fmt, int i, int ret)
+int main()
 {
-	while (fmt[i] != '\0')
-	{
-		if (fmt[i] != '%')
-		{
-			write(1, &fmt[i], 1);
-			ret++;
-		}
-		i++;
-		if(arg)
-		{}
-	}
-	return (ret);
-}
+	int a = 555;
+	int b = 0;
+	b = printf("%d\n", a);
+	printf("printf return = %d\n", b);
 
-int		ft_printf(const char *format, ...)
-{
-	va_list	arg;
-	int		ret;
-
-	va_start(arg, format);
-	ret = ft_start_printf(arg, format, 0, 0);
-	va_end(arg);
-	return (ret);
+	b = printf("aaaaa\n");
+	printf("printf return = %d\n", b);
+	b = ft_printf("aaaaa\n");
+	printf("ft_printf return = %d\n", b);
 }
