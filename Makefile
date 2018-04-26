@@ -24,6 +24,9 @@ HEADER = ft_printf.h
 
 SOURCES =	ft_printf.c\
 			ft_write.c\
+			ft_strchr.c\
+			ft_printf_strings.c\
+			ft_printf_params.c\
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

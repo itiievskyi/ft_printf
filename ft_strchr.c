@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 14:57:56 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/24 14:57:58 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/03/22 18:36:36 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/03/22 18:36:38 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int main()
+char	*ft_strchr(const char *s, int c)
 {
-	int b = 0;
-	char *line = "bbbbb";
+	int		i;
+	char	ch;
+	char	*line;
 
-	b = printf("\"aaaaa\"\n\"%s\"\n", line);
-	printf("printf return = %d\n", b);
-	printf("\n");
-	b = ft_printf("\"aaaaa\"\n\"%s\"\n", line);
-	printf("ft_printf return = %d\n", b);
-
-//	system("leaks a.out");
+	i = 0;
+	ch = (char)c;
+	line = (char *)s;
+	if (c == '\0')
+	{
+		while (line[i] != '\0')
+			i++;
+		return (&line[i]);
+	}
+	while (line[i] != '\0')
+	{
+		if (line[i] == ch)
+			return ((char *)&line[i]);
+		i++;
+	}
+	return (NULL);
 }

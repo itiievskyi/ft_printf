@@ -12,20 +12,14 @@
 
 #include "ft_printf.h"
 
-int			ft_write(const char *c)
+void			ft_write(const char *c, int *ret)
 {
-	static int	ret;
-
 	write(1, c, 1);
-	return(++ret);
+	*ret = *ret + 1;
 }
 
-int			ft_write_string(const char *s, int index)
+void			ft_write_string(const char *s, int index, int *ret)
 {
-	int	ret;
-
-	ret = 0;
 	while(s[index] != '\0')
-		ret = ft_write(&(s[index++]));
-	return (ret);
+		ft_write(&(s[index++]), ret);
 }

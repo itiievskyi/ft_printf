@@ -12,30 +12,41 @@
 
 #include "ft_printf.h"
 
-static int	ft_start_printf(va_list arg, const char *fmt, int i, int ret)
+static void	ft_start_printf(va_list arg, const char *fmt, int i, int *ret)
 {
+	t_params	*par;
+
 	while (fmt[i] != '\0')
 	{
 		if (fmt[i] != '%')
-			ret = ft_write(&fmt[i++]);
+			ft_write(&fmt[i++], ret);
 		else
 		{
-			if (fmt[++i] == 's')
-				ret = ft_write_string(va_arg(arg, char*), 0);
+			i++;
+			par = ft_get_param(&fmt[i], arg);
+
 			i++;
 		}
 	}
-	return (ret);
 }
 
 int			ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	int		ret;
+	int		*p;
 
+	ret = 0;
+	p = &ret;
 	va_start(arg, format);
-	ret = ft_start_printf(arg, format, 0, 0);
+	ft_start_printf(arg, format, 0, p);
 	va_end(arg);
 	return (ret);
-
 }
+/*
+a = i;
+while (ft_strchr("01234567890-+#.", fmt[i]) != NULL)
+	i++;
+if (ft_strchr("sScC", fmt[i]) != NULL)
+	ft_printf_strings(arg, &fmt[a], ret);
+	*/
