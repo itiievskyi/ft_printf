@@ -22,7 +22,8 @@ DIR_O = obj
 
 HEADER = ft_printf.h
 
-SOURCES = ft_printf.c
+SOURCES =	ft_printf.c\
+			ft_write.c\
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
@@ -39,11 +40,9 @@ $(DIR_O)/%.o: $(DIR_S)/%.c
 	@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
 
 norme:
-	norminette ./libft/
+	norminette $(HEADER)
 	@echo
-	norminette ./$(HEADER)/
-	@echo
-	norminette ./$(DIR_S)/
+	norminette $(SOURCES)
 
 clean:
 	@rm -f $(OBJS)
@@ -53,3 +52,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re norme

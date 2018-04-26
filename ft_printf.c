@@ -12,23 +12,23 @@
 
 #include "ft_printf.h"
 
-int	ft_start_printf(va_list arg, const char *fmt, int i, int ret)
+static int	ft_start_printf(va_list arg, const char *fmt, int i, int ret)
 {
 	while (fmt[i] != '\0')
 	{
 		if (fmt[i] != '%')
+			ret = ft_write(&fmt[i++]);
+		else
 		{
-			write(1, &fmt[i], 1);
-			ret++;
+			if (fmt[++i] == 's')
+				ret = ft_write_string(va_arg(arg, char*), 0);
+			i++;
 		}
-		i++;
-		if(arg)
-		{}
 	}
 	return (ret);
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	int		ret;
@@ -37,4 +37,5 @@ int		ft_printf(const char *format, ...)
 	ret = ft_start_printf(arg, format, 0, 0);
 	va_end(arg);
 	return (ret);
+
 }

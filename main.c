@@ -15,13 +15,12 @@
 
 int main()
 {
-	int a = 555;
 	int b = 0;
-	b = printf("%d\n", a);
-	printf("printf return = %d\n", b);
+	char *line = "bbbbb";
 
-	b = printf("aaaaa\n");
+	b = printf("\"aaaaa\"\n%s\n", line);
 	printf("printf return = %d\n", b);
-	b = ft_printf("aaaaa\n");
+	printf("\n");
+	b = ft_printf("\"aaaaa\"\n%s\n", line);
 	printf("ft_printf return = %d\n", b);
 }

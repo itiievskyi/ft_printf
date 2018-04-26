@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_write.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 15:00:21 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/24 15:00:23 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/04/26 10:21:52 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/04/26 10:22:08 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdlib.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdio.h>
+#include "ft_printf.h"
 
-int		ft_printf(const char *format, ...);
-int		ft_write(const char *c);
-int		ft_write_string(const char *s, int index);
+int			ft_write(const char *c)
+{
+	static int	ret;
 
-#endif
+	write(1, c, 1);
+	return(++ret);
+}
+
+int			ft_write_string(const char *s, int index)
+{
+	int	ret;
+
+	ret = 0;
+	while(s[index] != '\0')
+		ret = ft_write(&(s[index++]));
+	return (ret);
+}
