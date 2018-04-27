@@ -25,8 +25,7 @@ static void		ft_get_flags(t_params *par, size_t i, size_t length)
 			par->zero = 1;
 		if ((par->str)[i] == ' ')
 			par->space = 1;
-		if ((par->str)[i] == '-' &&
-			(par->str)[i + 1] > '9' && (par->str)[i + 1] < '1')
+		if ((par->str)[i] == '-')
 			par->minus = 1;
 		if ((par->str)[i] == '+')
 			par->plus = 1;
@@ -40,41 +39,43 @@ static void		ft_get_flags(t_params *par, size_t i, size_t length)
 
 static void		ft_get_width(t_params *par, va_list arg, int i)
 {
-	if (par->str[i] == '-' && par->str[i + 1] >= '1' && par->str[i + 1] <= '9')
-		par->minus = ++i;
-	if (par->str[i] >= '1' && par->str[i] <= '9')
+//	if (par->str[i] == '-' && par->str[i + 1] >= '0' && par->str[i + 1] <= '9')
+//		par->minus = ++i;
+	i = par->index;
+	printf("%zu\n", par->index);
+	if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 	{
-		while (par->str[i] >= '1' && par->str[i] <= '9')
-			i++;
-		par->width = ft_atoi(&par->str[par->index]);
-		par->index += i;
+		while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+			par->index += 1;
+		par->width = ft_atoi(&par->str[i]);
 	}
-	else if (par->str[i] == '*')
+	else if (par->str[par->index] == '*')
 	{
 		par->width = va_arg(arg, int);
-		par->index += 1;
 	}
 	if (par->width < 0)
 		par->width *= -1;
+	printf("%zu\n", par->index);
 }
 
 static void		ft_get_prec(t_params *par, va_list arg, int i)
 {
-	if (par->str[i] == '.')
+	i = par->index;
+	if (par->str[par->index] == '.')
 	{
-		i++;
+		par->index += 1;
 		par->precision = 0;
-		if (par->str[i] == '-' &&
-			par->str[i + 1] >= '1' && par->str[i + 1] <= '9')
-			par->minus = i++;
-		if (par->str[i] >= '1' && par->str[i] <= '9')
+//		if (par->str[i] == '-' &&
+//			par->str[i + 1] >= '0' && par->str[i + 1] <= '9')
+//			par->minus = i++;
+		if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 		{
-			while (par->str[i] >= '1' && par->str[i] <= '9')
-				i++;
-			par->precision = ft_atoi(&par->str[par->index + 1]);
-			par->index += i + 1;
+			while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+				par->index += 1;
+			par->precision = ft_atoi(&par->str[i + 1]);
+			par->index += 1;
 		}
-		else if (par->str[i] == '*')
+		else if (par->str[par->index] == '*')
 		{
 			par->precision = va_arg(arg, int);
 			par->index += i;
