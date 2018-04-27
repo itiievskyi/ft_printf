@@ -28,6 +28,8 @@ SOURCES =	ft_printf.c\
 			ft_printf_strings.c\
 			ft_printf_params.c\
 			ft_atoi.c\
+			ft_printf_struct.c\
+			ft_strlen.c\
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_strings.c                                :+:      :+:    :+:   */
+/*   ft_printf_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/26 12:38:22 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/26 12:38:25 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/04/27 15:24:40 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/04/27 15:24:42 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_printf_string(t_params *par, va_list arg, int *ret)
+t_params	*ft_get_struct(const char *fmt)
 {
-	par->data = strdup(va_arg(arg, char*));
-	if (par->precision >= 0 && (par->precision < (int)ft_strlen(par->data)))
-	{
-		(par->data)[par->precision] = '\0';
-	}
-	ft_write_string(par->data, 0, ret);
+	t_params	*par;
+
+	if ((par = (t_params*)malloc(sizeof(t_params))) == NULL)
+		return (NULL);
+	par->str = fmt;
+	par->index = 0;
+	par->ret_point = 0;
+	par->length = 0;
+	par->width = 0;
+	par->convert = '\0';
+	par->mod = '\0';
+	par->precision = -1;
+	par->hash = 0;
+	par->zero = 0;
+	par->space = 0;
+	par->minus = 0;
+	par->plus = 0;
+	par->apostrophe = 0;
+	return (par);
 }

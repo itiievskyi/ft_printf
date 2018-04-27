@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	ft_get_flags(t_params *par, int i, int length)
+static void		ft_get_flags(t_params *par, size_t i, size_t length)
 {
 	while (!ft_strchr("diouxXDOUeEfFgGaAcCsSPn%%", (par->str)[length]))
 		length++;
@@ -35,9 +35,10 @@ static void	ft_get_flags(t_params *par, int i, int length)
 		i++;
 	}
 	par->index = i;
+	par->ret_point = par->ret_point + length + 1;
 }
 
-static void	ft_get_width(t_params *par, va_list arg, int i)
+static void		ft_get_width(t_params *par, va_list arg, int i)
 {
 	if (par->str[i] == '-' && par->str[i + 1] >= '1' && par->str[i + 1] <= '9')
 		par->minus = ++i;
@@ -46,8 +47,9 @@ static void	ft_get_width(t_params *par, va_list arg, int i)
 		while (par->str[i] >= '1' && par->str[i] <= '9')
 			i++;
 		par->width = ft_atoi(&par->str[par->index]);
+		par->index += i;
 	}
-	else if (par->str[i] >= '*')
+	else if (par->str[i] == '*')
 	{
 		par->width = va_arg(arg, int);
 		par->index += 1;
@@ -56,26 +58,60 @@ static void	ft_get_width(t_params *par, va_list arg, int i)
 		par->width *= -1;
 }
 
-t_params	*ft_get_param(const char *fmt, va_list arg)
+static void		ft_get_prec(t_params *par, va_list arg, int i)
 {
-	t_params	*par;
+	if (par->str[i] == '.')
+	{
+		i++;
+		par->precision = 0;
+		if (par->str[i] == '-' &&
+			par->str[i + 1] >= '1' && par->str[i + 1] <= '9')
+			par->minus = i++;
+		if (par->str[i] >= '1' && par->str[i] <= '9')
+		{
+			while (par->str[i] >= '1' && par->str[i] <= '9')
+				i++;
+			par->precision = ft_atoi(&par->str[par->index + 1]);
+			par->index += i + 1;
+		}
+		else if (par->str[i] == '*')
+		{
+			par->precision = va_arg(arg, int);
+			par->index += i;
+		}
+	}
+}
 
-	if((par = (t_params*)malloc(sizeof(t_params))) == NULL)
-			return (NULL);
-	par->str = fmt;
-	par->length = 0;
-	par->width = 0;
-	par->convert = 0;
-	par->data = 0;
-	par->mod = 0;
-	par->precision = 0;
-	par->hash = 0;
-	par->zero = 0;
-	par->space = 0;
-	par->minus = 0;
-	par->plus = 0;
-	par->apostrophe = 0;
+static void		ft_handle_conflicts(t_params *par)
+{
+	if (par->zero && par->minus)
+		par->zero = 0;
+	if (par->plus && par->space)
+		par->space = 0;
+}
+
+void			ft_get_param(t_params *par, va_list arg)
+{
 	ft_get_flags(par, 0, 0);
 	ft_get_width(par, arg, 0);
-	return (par);
+	ft_get_prec(par, arg, 0);
+	if (ft_strchr("hlLjtzq", par->str[par->index]))
+	{
+		if (par->str[par->index] == 'h' && par->str[par->index + 1] == 'h')
+		{
+			par->mod = '1';
+			par->index += 2;
+		}
+		else if (par->str[par->index] == 'l' && par->str[par->index + 1] == 'l')
+		{
+			par->mod = '2';
+			par->index += 2;
+		}
+		else
+		{
+			par->mod = '2';
+			par->index += 1;
+		}
+	}
+	ft_handle_conflicts(par);
 }

@@ -18,10 +18,10 @@ int main()
 	int b = 0;
 	char *line = "bbbbb";
 
-	b = printf("\"aaaaa\"\n\"%s\"\n", line);
+	b = printf("\"aaaaa\"\n\"%.s\"\nAAA\n", line);
 	printf("printf return = %d\n", b);
 	printf("\n");
-	b = ft_printf("\"aaaaa\"\n\"%s\"\n", line);
+	b = ft_printf("\"aaaaa\"\n\"%.s\"\nAAA\n", line);
 	printf("ft_printf return = %d\n", b);
 
 //	system("leaks a.out");

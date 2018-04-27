@@ -16,12 +16,12 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <strings.h>
 
+int					ft_atoi(const char *str);
 int					ft_printf(const char *format, ...);
-void				ft_write(const char *c, int *ret);
-void				ft_write_string(const char *s, int index, int *ret);
 char				*ft_strchr(const char *s, int c);
-void				ft_printf_strings(va_list arg, const char *fmt, int *ret);
+size_t				ft_strlen(const char *s);
 
 typedef struct		s_params
 {
@@ -30,8 +30,9 @@ typedef struct		s_params
 	char			convert;
 	int				width;
 	size_t			index;
-	void			*data;
-	char			*mod;
+	size_t			ret_point;
+	char			*data;
+	char			mod;
 	int				precision;
 	int				hash;
 	int				zero;
@@ -41,7 +42,10 @@ typedef struct		s_params
 	int				apostrophe;
 }					t_params;
 
-t_params			*ft_get_param(const char *fmt, va_list arg);
-int					ft_atoi(const char *str);
+t_params			*ft_get_struct(const char *fmt);
+void				ft_get_param(t_params *par, va_list arg);
+void				ft_write(const char *c, int *ret);
+void				ft_write_string(const char *s, int index, int *ret);
+void				ft_printf_string(t_params *par, va_list arg, int *ret);
 
 #endif
