@@ -27,6 +27,7 @@ SOURCES =	ft_printf.c\
 			ft_strchr.c\
 			ft_printf_strings.c\
 			ft_printf_params.c\
+			ft_atoi.c\
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

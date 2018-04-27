@@ -28,7 +28,7 @@ typedef struct		s_params
 	const char		*str;
 	size_t			length;
 	char			convert;
-	size_t			width;
+	int				width;
 	size_t			index;
 	void			*data;
 	char			*mod;
@@ -42,5 +42,6 @@ typedef struct		s_params
 }					t_params;
 
 t_params			*ft_get_param(const char *fmt, va_list arg);
+int					ft_atoi(const char *str);
 
 #endif
