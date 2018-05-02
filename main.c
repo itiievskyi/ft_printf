@@ -43,18 +43,24 @@ int main()
 	b = ft_printf("\"aaaaa\"\n\"%0-000000020.04s\"\t\tAAA\n", line);
 	printf("ft_printf return = %d\n", b);
 
-	printf("##################= STRINGS #2 =##################\n\n");
-
-	printf("\n");
-
-	int aa = (int)line3_2[0];
-	write(1, &line3[0], 2);
-	printf("%d\t%C\n", aa, *line3_1);
-	write(1, &(line3_2[0]), 2);
-
 	printf("\n");
 	ft_printf("%.0%");
 	printf("\n");
+	printf("##################= STRINGS #2 =##################\n\n");
+
+	printf("##################= UNICODE #1 =##################\n\n");
+
+	wchar_t wc = L'П';
+	int wi = (int)(wc);
+	printf("%d\n", wi);
+
+	unsigned char ws[4];
+	ws[0] = (192 + (wi >> 6));
+	ws[1] = (128 + wi % 128);
+	ws[2] = '\n';
+	ws[3] = '\0';
+
+	write(1, ws, 3);
 
 //	system("leaks a.out");
 }
