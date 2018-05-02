@@ -15,7 +15,9 @@
 static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 {
 	if (par->convert == 's')
-		ft_printf_string(par, arg, ret);
+		ft_printf_string(par, arg, ret, 0);
+	if (par->convert == 'c' || par->convert == '%')
+		ft_printf_char(par, arg, ret);
 }
 
 static void	ft_start_printf(va_list arg, const char *fmt, size_t i, int *ret)
@@ -26,14 +28,16 @@ static void	ft_start_printf(va_list arg, const char *fmt, size_t i, int *ret)
 	{
 		par = NULL;
 		if (fmt[i] != '%')
-			ft_write(&fmt[i++], ret);
-		else
+			ft_write(&fmt[i++], ret, 1);
+		else if (fmt[i + 1] != '\0')
 		{
 			par = ft_get_struct(&fmt[++i]);
 			ft_get_param(par, arg);
 			ft_write_arg(par, arg, ret);
 			i = i + par->ret_point;
 		}
+		else
+			i++;
 		free(par);
 	}
 }
@@ -51,10 +55,3 @@ int			ft_printf(const char *format, ...)
 	va_end(arg);
 	return (ret);
 }
-/*
-a = i;
-while (ft_strchr("01234567890-+#.", fmt[i]) != NULL)
-	i++;
-if (ft_strchr("sScC", fmt[i]) != NULL)
-	ft_printf_strings(arg, &fmt[a], ret);
-	*/

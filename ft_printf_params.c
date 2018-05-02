@@ -12,12 +12,16 @@
 
 #include "ft_printf.h"
 
-static void		ft_get_flags(t_params *par, size_t i, size_t length)
+static void		ft_get_flags(t_params *par, size_t i, size_t len)
 {
-	while (!ft_strchr("diouxXDOUeEfFgGaAcCsSPn%%", (par->str)[length]))
-		length++;
-	par->convert = (par->str)[length];
-	while (i < length && ft_strchr("#0 -+\'", (par->str)[i]))
+	while ((par->str)[len] != '\0' &&
+		ft_strchr("0123456789# -+\'hlLjtzq.*", (par->str)[len]))
+		len++;
+	if (ft_strchr("diouxXDOUeEfFgGaAcCsSPn%%", (par->str)[len]))
+		par->convert = (par->str)[len];
+	if (par->convert == '\0')
+		par->error = 1;
+	while (par->error == 0 && (i < len && ft_strchr("#0 -+\'", (par->str)[i])))
 	{
 		if ((par->str)[i] == '#')
 			par->hash = 1;
@@ -34,15 +38,12 @@ static void		ft_get_flags(t_params *par, size_t i, size_t length)
 		i++;
 	}
 	par->index = i;
-	par->ret_point = par->ret_point + length + 1;
+	par->ret_point = par->ret_point + len + 1 - ((int)par->error) / 1;
 }
 
 static void		ft_get_width(t_params *par, va_list arg, int i)
 {
-//	if (par->str[i] == '-' && par->str[i + 1] >= '0' && par->str[i + 1] <= '9')
-//		par->minus = ++i;
 	i = par->index;
-//	printf("%zu\n", par->index);
 	if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 	{
 		while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
@@ -55,7 +56,6 @@ static void		ft_get_width(t_params *par, va_list arg, int i)
 	}
 	if (par->width < 0)
 		par->width *= -1;
-//	printf("%zu\n", par->index);
 }
 
 static void		ft_get_prec(t_params *par, va_list arg, int i)
@@ -64,23 +64,22 @@ static void		ft_get_prec(t_params *par, va_list arg, int i)
 	if (par->str[par->index] == '.')
 	{
 		par->index += 1;
-		par->precision = 0;
-//		if (par->str[i] == '-' &&
-//			par->str[i + 1] >= '0' && par->str[i + 1] <= '9')
-//			par->minus = i++;
+		par->prec = 0;
 		if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 		{
 			while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 				par->index += 1;
-			par->precision = ft_atoi(&par->str[i + 1]);
+			par->prec = ft_atoi(&par->str[i + 1]);
 			par->index += 1;
 		}
 		else if (par->str[par->index] == '*')
 		{
-			par->precision = va_arg(arg, int);
+			par->prec = va_arg(arg, int);
 			par->index += i;
 		}
 	}
+	if (par->convert == 'c' || par->convert == '%')
+		par->prec = -1;
 }
 
 static void		ft_handle_conflicts(t_params *par)

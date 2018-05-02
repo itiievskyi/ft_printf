@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_write.c                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/26 10:21:52 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/26 10:22:08 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/03/22 11:13:45 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/03/22 11:13:49 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_write(const char *c, int *ret, int size)
+char	*ft_strdup(const char *src)
 {
-	write(1, c, size);
-	*ret = *ret + 1;
-}
+	char	*dup;
+	int		i;
 
-void			ft_write_string(const char *s, int index, int *ret)
-{
-	while (s[index] != '\0')
-		ft_write(&(s[index++]), ret, 1);
+	if (!src)
+		return (NULL);
+	i = 0;
+	while (src[i] != '\0')
+		i++;
+	if (!(dup = (char*)malloc(sizeof(*dup) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }

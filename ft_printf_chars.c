@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_strings.c                                :+:      :+:    :+:   */
+/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/26 12:38:22 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/26 12:38:25 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/05/02 11:23:17 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/05/02 11:23:19 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_printf_string(t_params *par, va_list arg, int *ret, int a)
+void		ft_printf_char(t_params *par, va_list arg, int *ret)
 {
-	if (!(par->data = ft_strdup(va_arg(arg, char*))))
-	{
-		par->error = 1;
-		ft_write_string("(null)", 0, ret);
-	}
-	else if (par->prec >= 0 && (par->prec < (int)ft_strlen(par->data)))
-		(par->data)[par->prec] = '\0';
-	if (par->error == 0 && (a = par->width - (int)ft_strlen(par->data)) > 0)
+	int		a;
+	char	ch;
+
+	if (par->convert == 'c')
+		ch = (va_arg(arg, int));
+	else if (par->convert == '%')
+		ch = '%';
+	if (par->prec == 0)
+		ch = '\0';
+	if ((a = par->width - 1) > 0)
 	{
 		if (par->minus)
-			ft_write_string(par->data, 0, ret);
+			ft_write(&ch, ret, 1);
 		while (a--)
 		{
 			if (par->zero)
@@ -33,9 +35,8 @@ void		ft_printf_string(t_params *par, va_list arg, int *ret, int a)
 				ft_write(" ", ret, 1);
 		}
 		if (!(par->minus))
-			ft_write_string(par->data, 0, ret);
+			ft_write(&ch, ret, 1);
 	}
-	else if (par->error == 0)
-		ft_write_string(par->data, 0, ret);
-	free(par->data);
+	else
+		ft_write(&ch, ret, 1);
 }

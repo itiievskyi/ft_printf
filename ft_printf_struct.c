@@ -25,12 +25,13 @@ t_params	*ft_get_struct(const char *fmt)
 	par->width = 0;
 	par->convert = '\0';
 	par->mod = '\0';
-	par->precision = -1;
+	par->prec = -1;
 	par->hash = 0;
 	par->zero = 0;
 	par->space = 0;
 	par->minus = 0;
 	par->plus = 0;
 	par->apostrophe = 0;
+	par->error = 0;
 	return (par);
 }
