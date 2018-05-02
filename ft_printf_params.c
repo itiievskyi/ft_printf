@@ -42,7 +42,7 @@ static void		ft_get_width(t_params *par, va_list arg, int i)
 //	if (par->str[i] == '-' && par->str[i + 1] >= '0' && par->str[i + 1] <= '9')
 //		par->minus = ++i;
 	i = par->index;
-	printf("%zu\n", par->index);
+//	printf("%zu\n", par->index);
 	if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 	{
 		while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
@@ -55,7 +55,7 @@ static void		ft_get_width(t_params *par, va_list arg, int i)
 	}
 	if (par->width < 0)
 		par->width *= -1;
-	printf("%zu\n", par->index);
+//	printf("%zu\n", par->index);
 }
 
 static void		ft_get_prec(t_params *par, va_list arg, int i)
