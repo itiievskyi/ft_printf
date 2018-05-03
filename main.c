@@ -50,14 +50,11 @@ int main()
 
 	printf("##################= UNICODE #1 =##################\n\n");
 
-	ft_printf("\"%20lc\"\n", L'ي');
+	ft_printf("\"%20lc\"\n", line3[0]);
 
-	unsigned char ws[4];
-	ws[0] = 217;
-	ws[1] = 138;
-	ws[2] = '\n';
-	ws[3] = '\0';
-
-	write(1, ws, 3);
+	b = ft_printf("\"%4.1S\"\n", L"Jambon");
+	printf("ft_printf return = %d\n", b);
+	b = printf("\"%4.1S\"\n", L"Jambon");
+	printf("printf return = %d\n", b);
 //	system("leaks a.out");
 }

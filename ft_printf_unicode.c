@@ -12,9 +12,8 @@
 
 #include "ft_printf.h"
 
-static void	get_wchar(va_list arg, unsigned char wch[], int *len, int num)
+static void		get_wchar(unsigned char wch[], int *len, int num)
 {
-	num = (va_arg(arg, int));
 	if (num >= 0 && num <= 127)
 		wch[0] = num;
 	else if (num >= 128 && num <= 2047)
@@ -40,7 +39,7 @@ static void	get_wchar(va_list arg, unsigned char wch[], int *len, int num)
 	}
 }
 
-void		ft_printf_wchar(t_params *par, va_list arg, int *ret)
+void			ft_printf_wchar(t_params *par, va_list arg, int *ret)
 {
 	int				a;
 	int				len;
@@ -48,7 +47,7 @@ void		ft_printf_wchar(t_params *par, va_list arg, int *ret)
 
 	len = 1;
 	ft_bzero(wch, 4);
-	get_wchar(arg, wch, &len, 0);
+	get_wchar(wch, &len, (va_arg(arg, int)));
 	if (par->prec >= 0 && (par->prec < len))
 		(wch)[par->prec] = '\0';
 	if (par->error == 0 && (a = par->width - len) > 0)
@@ -67,4 +66,91 @@ void		ft_printf_wchar(t_params *par, va_list arg, int *ret)
 	}
 	else if (par->error == 0)
 		ft_write_wstring(wch, ret, len);
+}
+
+static int		record_wstr(int num, unsigned char *wstr)
+{
+	if (num >= 0 && num <= 127)
+	{
+		wstr[0] = num;
+		return (1);
+	}
+	else if (num >= 128 && num <= 2047)
+	{
+		wstr[0] = (192 + (num / 64));
+		wstr[1] = (128 + num % 64 % 64);
+		return (2);
+	}
+	else if (num >= 2048 && num <= 65535)
+	{
+		wstr[0] = (224 + (num / 4096));
+		wstr[1] = (128 + (num % 4096) / 64);
+		wstr[2] = (128 + (num % 4096) % 64);
+		return (3);
+	}
+	else if (num >= 65536 && num <= 1114111)
+	{
+		wstr[0] = (240 + (num / 524288));
+		wstr[1] = (128 + (num % 524288) / 4096);
+		wstr[2] = (128 + (num % 524288) % 4096 / 64);
+		wstr[3] = (128 + (num % 524288) % 4096 % 64);
+		return (4);
+	}
+	return (0);
+}
+
+unsigned char	*get_wlength(int *len, int index, int num, va_list arg)
+{
+	unsigned char	*wstr;
+	wchar_t			*str;
+
+	if (!(str = ft_wstrdup(va_arg(arg, wchar_t*))))
+		return (NULL);
+	while (str[index])
+	{
+		num = (int)str[index++];
+		if (num >= 0 && num <= 127)
+			*len += 1;
+		else if (num >= 128 && num <= 2047)
+			*len += 2;
+		else if (num >= 2048 && num <= 65535)
+			*len += 3;
+		else if (num >= 65536 && num <= 1114111)
+			*len += 4;
+	}
+	if (!(wstr = (unsigned char*)malloc(sizeof(unsigned char) * (int)(*len))))
+		return (NULL);
+	index = 0;
+	num = 0;
+	while (num < (int)(*len))
+		num += record_wstr((int)str[index++], &wstr[num]);
+	free(str);
+	return (wstr);
+}
+
+void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len)
+{
+	int				a;
+	unsigned char	*wstr;
+
+	wstr = NULL;
+	if (!(wstr = get_wlength(&len, 0, 0, arg)))
+	{
+		ft_write_wstring((unsigned char *)"(null)", ret, 6);
+		par->error = 1;
+	}
+	if (par->prec >= 0 && (par->prec < len))
+		wstr[par->prec] = '\0';
+	if (!par->error && ((a = par->width - ft_strlen((const char*)wstr)) > 0))
+	{
+		if (par->minus)
+			ft_write_wstring(wstr, ret, ft_strlen((const char*)wstr));
+		while (a--)
+			ft_check_pad(par, ret);
+		if (!(par->minus))
+			ft_write_wstring(wstr, ret, ft_strlen((const char*)wstr));
+	}
+	else if (par->error == 0)
+		ft_write_wstring(wstr, ret, len);
+	free(wstr);
 }
