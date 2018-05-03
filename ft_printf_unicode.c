@@ -140,15 +140,16 @@ void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len)
 		par->error = 1;
 	}
 	if (par->prec >= 0 && (par->prec < len))
-		wstr[par->prec] = '\0';
-	if (!par->error && ((a = par->width - ft_strlen((const char*)wstr)) > 0))
+		len = par->prec;
+	if (!par->error && ((a = par->width - len) > 0))
 	{
+		printf("%d\n", a);
 		if (par->minus)
-			ft_write_wstring(wstr, ret, ft_strlen((const char*)wstr));
+			ft_write_wstring(wstr, ret, len);
 		while (a--)
 			ft_check_pad(par, ret);
 		if (!(par->minus))
-			ft_write_wstring(wstr, ret, ft_strlen((const char*)wstr));
+			ft_write_wstring(wstr, ret, len);
 	}
 	else if (par->error == 0)
 		ft_write_wstring(wstr, ret, len);

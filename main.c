@@ -52,9 +52,9 @@ int main()
 
 	ft_printf("\"%20lc\"\n", line3[0]);
 
-	b = ft_printf("\"%4.1S\"\n", L"Jambon");
+	b = ft_printf("\"%.4S\"\n", L"我是一只猫。");
 	printf("ft_printf return = %d\n", b);
-	b = printf("\"%4.1S\"\n", L"Jambon");
+	b = printf("\"%.4S\"\n", L"\xe6\x88\x91\xe6\x98\xaf\xe4\xb8\x80\xe5\x8f\xaa\xe7\x8c\xab\xe3\x80\x82");
 	printf("printf return = %d\n", b);
 //	system("leaks a.out");
 }
