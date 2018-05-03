@@ -16,8 +16,11 @@ static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 {
 	if (par->convert == 's')
 		ft_printf_string(par, arg, ret, 0);
-	if (par->convert == 'c' || par->convert == '%')
+	else if (par->convert == 'c' || par->convert == '%')
 		ft_printf_char(par, arg, ret);
+	else if (par->convert == 'C')
+		ft_printf_wchar(par, arg, ret);
+
 }
 
 static void	ft_start_printf(va_list arg, const char *fmt, size_t i, int *ret)

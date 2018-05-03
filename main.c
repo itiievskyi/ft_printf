@@ -50,17 +50,14 @@ int main()
 
 	printf("##################= UNICODE #1 =##################\n\n");
 
-	wchar_t wc = L'П';
-	int wi = (int)(wc);
-	printf("%d\n", wi);
+	ft_printf("\"%20lc\"\n", L'ي');
 
 	unsigned char ws[4];
-	ws[0] = (192 + (wi >> 6));
-	ws[1] = (128 + wi % 128);
+	ws[0] = 217;
+	ws[1] = 138;
 	ws[2] = '\n';
 	ws[3] = '\0';
 
 	write(1, ws, 3);
-
 //	system("leaks a.out");
 }

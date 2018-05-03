@@ -88,6 +88,8 @@ static void		ft_handle_conflicts(t_params *par)
 		par->zero = 0;
 	if (par->plus && par->space)
 		par->space = 0;
+	if (par->convert == 'c' && par->mod == 'l')
+		par->convert = 'C';
 }
 
 void			ft_get_param(t_params *par, va_list arg)
@@ -109,7 +111,7 @@ void			ft_get_param(t_params *par, va_list arg)
 		}
 		else
 		{
-			par->mod = '2';
+			par->mod = par->str[par->index];
 			par->index += 1;
 		}
 	}

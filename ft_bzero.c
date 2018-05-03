@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_write.c                                         :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itiievsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/26 10:21:52 by itiievsk          #+#    #+#             */
-/*   Updated: 2018/04/26 10:22:08 by itiievsk         ###   ########.fr       */
+/*   Created: 2018/03/22 13:30:53 by itiievsk          #+#    #+#             */
+/*   Updated: 2018/03/22 13:30:56 by itiievsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_write(const char *c, int *ret, int size)
+void	ft_bzero(void *s, size_t n)
 {
-	write(1, c, size);
-	*ret = *ret + 1;
-}
-
-void		ft_write_string(const char *s, int index, int *ret)
-{
-	while (s[index] != '\0')
-		ft_write(&(s[index++]), ret, 1);
-}
-
-void		ft_write_wstring(unsigned char *s, int *ret, int len)
-{
-	write(1, s, len);
-	*ret = *ret + len;
+	ft_memset(s, '\0', n);
 }

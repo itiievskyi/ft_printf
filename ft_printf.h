@@ -23,6 +23,8 @@ int				ft_printf(const char *format, ...);
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *src);
+void			*ft_memset(void *b, int c, size_t len);
+void			ft_bzero(void *s, size_t n);
 
 typedef struct	s_params
 {
@@ -48,7 +50,9 @@ t_params		*ft_get_struct(const char *fmt);
 void			ft_get_param(t_params *par, va_list arg);
 void			ft_write(const char *c, int *ret, int size);
 void			ft_write_string(const char *s, int index, int *ret);
+void			ft_write_wstring(unsigned char *s, int *ret, int len);
 void			ft_printf_char(t_params *par, va_list arg, int *ret);
 void			ft_printf_string(t_params *par, va_list arg, int *ret, int a);
+void			ft_printf_wchar(t_params *par, va_list arg, int *ret);
 
 #endif
