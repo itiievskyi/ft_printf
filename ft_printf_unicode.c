@@ -143,7 +143,6 @@ void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len)
 		len = par->prec;
 	if (!par->error && ((a = par->width - len) > 0))
 	{
-		printf("%d\n", a);
 		if (par->minus)
 			ft_write_wstring(wstr, ret, len);
 		while (a--)

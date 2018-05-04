@@ -15,6 +15,7 @@
 
 int main()
 {
+	setlocale(LC_ALL, "");
 	int b = 0;
 	char *line = "bbbbb";
 	char *line2 = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -52,9 +53,10 @@ int main()
 
 	ft_printf("\"%20lc\"\n", line3[0]);
 
-	b = ft_printf("\"%.4S\"\n", L"我是一只猫。");
+	b = ft_printf("\"%15.4S\"\n", L"我是一只猫。");
 	printf("ft_printf return = %d\n", b);
-	b = printf("\"%.4S\"\n", L"\xe6\x88\x91\xe6\x98\xaf\xe4\xb8\x80\xe5\x8f\xaa\xe7\x8c\xab\xe3\x80\x82");
-	printf("printf return = %d\n", b);
+	b = printf("\"%15.4S\"\n", L"我是一只猫。");
+	if ((printf("printf return = %d\n", b)) < 0)
+		perror("printf");
 //	system("leaks a.out");
 }
