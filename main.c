@@ -15,7 +15,6 @@
 
 int main()
 {
-	setlocale(LC_ALL, "");
 	int b = 0;
 	char *line = "bbbbb";
 	char *line2 = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -47,7 +46,6 @@ int main()
 	printf("\n");
 	ft_printf("%.0%");
 	printf("\n");
-	printf("##################= STRINGS #2 =##################\n\n");
 
 	printf("##################= UNICODE #1 =##################\n\n");
 
@@ -58,5 +56,23 @@ int main()
 	b = printf("\"%15.4S\"\n", L"我是一只猫。");
 	if ((printf("printf return = %d\n", b)) < 0)
 		perror("printf");
+
+	printf("##################= INTEGERS #1 =##################\n\n");
+
+	unsigned long long ll = 9223372;
+
+	b = printf("%0 d", -42);
+	printf("\n");
+	if ((printf("printf return = %d\n", b)) < 0)
+		perror("printf");
+	b = ft_printf("%0 d", -42);
+	printf("\n");
+	printf("ft_printf return = %d\n", b);
+
+	ll = 0;
+
+
 //	system("leaks a.out");
+
+
 }

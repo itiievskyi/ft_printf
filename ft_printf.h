@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <strings.h>
 
@@ -58,5 +59,7 @@ void			ft_printf_string(t_params *par, va_list arg, int *ret, int a);
 void			ft_printf_wchar(t_params *par, va_list arg, int *ret);
 void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len);
 unsigned char	*get_wlength(int *len, int index, int num, va_list arg);
+void			ft_printf_i(t_params *par, va_list arg, int *ret, int len);
+void			ft_put_sign(t_params *par, int *ret);
 
 #endif

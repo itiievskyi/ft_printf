@@ -90,6 +90,18 @@ static void		ft_handle_conflicts(t_params *par)
 		par->space = 0;
 	if ((par->convert == 'c' || par->convert == 's') && par->mod == 'l')
 		par->convert -= 32;
+	if (par->convert == 'i')
+		par->convert = 'd';
+	if (par->convert == 'd' && par->prec > par->width)
+		par->width = par->prec;
+	if (par->convert == 'd' && par->plus)
+		par->zero = 1;
+	if (par->convert == 'd' && par->prec > -1)
+	{
+		par->zero = 1;
+		par->minus = 0;
+	}
+
 }
 
 void			ft_get_param(t_params *par, va_list arg)

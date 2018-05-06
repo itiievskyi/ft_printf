@@ -19,3 +19,14 @@ void		ft_check_pad(t_params *par, int *ret)
 	else
 		ft_write(" ", ret, 1);
 }
+
+void		ft_put_sign(t_params *par, int *ret)
+{
+	if (!par->space && par->plus != 0)
+	{
+		if (par->plus < 0)
+			ft_write("-", ret, 1);
+		else
+			ft_write("+", ret, 1);
+	}
+}
