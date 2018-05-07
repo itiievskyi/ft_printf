@@ -21,18 +21,18 @@ static void		ft_get_flags(t_params *par, size_t i, size_t len)
 		par->convert = (par->str)[len];
 	if (par->convert == '\0')
 		par->error = 1;
+	if (ft_strnchr(par->str, '+', len))
+		par->plus = '+';
+	if (ft_strnchr(par->str, '-', len))
+		par->minus = 1;
+	if (ft_strnchr(par->str, '#', len))
+		par->hash = 1;
+	if (ft_strnchr(par->str, ' ', len))
+		par->space = 1;
 	while (par->error == 0 && (i < len && ft_strchr("#0 -+\'", (par->str)[i])))
 	{
-		if ((par->str)[i] == '#')
-			par->hash = 1;
 		if ((par->str)[i] == '0')
 			par->zero = 1;
-		if ((par->str)[i] == ' ')
-			par->space = 1;
-		if ((par->str)[i] == '-')
-			par->minus = 1;
-		if ((par->str)[i] == '+')
-			par->plus = 1;
 		if ((par->str)[i] == '\'')
 			par->apostrophe = 1;
 		i++;
@@ -44,15 +44,20 @@ static void		ft_get_flags(t_params *par, size_t i, size_t len)
 static void		ft_get_width(t_params *par, va_list arg, int i)
 {
 	i = par->index;
-	if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+	while (ft_strchr("1234567890*", par->str[par->index]))
 	{
-		while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+		if (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+		{
+			while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
+				par->index += 1;
+			par->width = ft_atoi(&par->str[i]);
+		}
+		if (par->str[par->index] == '*')
+		{
+			par->width = va_arg(arg, int);
 			par->index += 1;
-		par->width = ft_atoi(&par->str[i]);
-	}
-	else if (par->str[par->index] == '*')
-	{
-		par->width = va_arg(arg, int);
+			i = par->index;
+		}
 	}
 	if (par->width < 0)
 		par->width *= -1;
@@ -78,15 +83,22 @@ static void		ft_get_prec(t_params *par, va_list arg, int i)
 			par->index += i;
 		}
 	}
-	if (par->convert == 'c' || par->convert == '%')
+	else
+		par->index += 1;
+	if (par->convert == 'c' || par->convert == '%' || par->prec < 0)
 		par->prec = -1;
 }
 
 static void		ft_handle_conflicts(t_params *par)
 {
-	if (par->zero && par->minus)
+	if ((par->zero && par->minus))
 		par->zero = 0;
-	if (par->plus && par->space)
+	if (par->convert == 'D' || par->convert == 'U' || par->convert == 'O')
+	{
+		par->mod = 'l';
+		par->convert += 32;
+	}
+	if ((par->plus || par->convert == 'u' || par->hash))
 		par->space = 0;
 	if ((par->convert == 'c' || par->convert == 's') && par->mod == 'l')
 		par->convert -= 32;
@@ -94,21 +106,14 @@ static void		ft_handle_conflicts(t_params *par)
 		par->convert = 'd';
 	if (par->convert == 'd' && par->prec > par->width)
 		par->width = par->prec;
-	if (par->convert == 'd' && par->plus)
-		par->zero = 1;
-	if (par->convert == 'd' && par->prec > -1)
-	{
-		par->zero = 1;
-		par->minus = 0;
-	}
-
 }
 
 void			ft_get_param(t_params *par, va_list arg)
 {
 	ft_get_flags(par, 0, 0);
 	ft_get_width(par, arg, 0);
-	ft_get_prec(par, arg, 0);
+	while (!ft_strchr("hlLjtzqdiouxXDOUeEfFgGaAcCsSPn%%", par->str[par->index]))
+		ft_get_prec(par, arg, 0);
 	if (ft_strchr("hlLjtzq", par->str[par->index]))
 	{
 		if (par->str[par->index] == 'h' && par->str[par->index + 1] == 'h')

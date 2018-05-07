@@ -22,6 +22,7 @@
 int				ft_atoi(const char *str);
 int				ft_printf(const char *format, ...);
 char			*ft_strchr(const char *s, int c);
+char			*ft_strnchr(const char *s, int c, int size);
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *src);
 void			*ft_memset(void *b, int c, size_t len);
@@ -43,7 +44,7 @@ typedef struct	s_params
 	int			zero;
 	int			space;
 	int			minus;
-	int			plus;
+	char		plus;
 	int			apostrophe;
 	int			error;
 }				t_params;
@@ -61,5 +62,6 @@ void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len);
 unsigned char	*get_wlength(int *len, int index, int num, va_list arg);
 void			ft_printf_i(t_params *par, va_list arg, int *ret, int len);
 void			ft_put_sign(t_params *par, int *ret);
+uintmax_t		ft_get_num(t_params *par, uintmax_t n, intmax_t s, va_list arg);
 
 #endif

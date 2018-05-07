@@ -59,19 +59,17 @@ int main()
 
 	printf("##################= INTEGERS #1 =##################\n\n");
 
-	unsigned long long ll = 9223372;
+	long long ll = 1844674407370955161;
 
-	b = printf("%0 d", -42);
+	b = printf("@main_ftprintf: %####0000 33..1d", 256);
 	printf("\n");
 	if ((printf("printf return = %d\n", b)) < 0)
 		perror("printf");
-	b = ft_printf("%0 d", -42);
+	b = ft_printf("@main_ftprintf: %####0000 33..1d", 256);
 	printf("\n");
 	printf("ft_printf return = %d\n", b);
 
 	ll = 0;
-
-
 //	system("leaks a.out");
 
 

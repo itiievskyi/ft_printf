@@ -14,7 +14,12 @@
 
 void		ft_check_pad(t_params *par, int *ret)
 {
-	if (par->zero)
+	if (par->zero >= 0 && par->convert == 'd' && par->prec == -1 && par->plus)
+		ft_write(" ", ret, 1);
+	else if (par->convert == 'd' && par->prec >= 0 &&
+		((par->zero++ + par->length) <= (size_t)par->prec))
+		ft_write("0", ret, 1);
+	else if (par->zero && par->prec && !par->hash)
 		ft_write("0", ret, 1);
 	else
 		ft_write(" ", ret, 1);
@@ -22,11 +27,6 @@ void		ft_check_pad(t_params *par, int *ret)
 
 void		ft_put_sign(t_params *par, int *ret)
 {
-	if (!par->space && par->plus != 0)
-	{
-		if (par->plus < 0)
-			ft_write("-", ret, 1);
-		else
-			ft_write("+", ret, 1);
-	}
+	if (par->plus)
+		ft_write(&par->plus, ret, 1);
 }

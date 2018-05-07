@@ -71,10 +71,7 @@ void			ft_printf_wchar(t_params *par, va_list arg, int *ret)
 static int		record_wstr(int num, unsigned char *wstr)
 {
 	if (num >= 0 && num <= 127)
-	{
 		wstr[0] = num;
-		return (1);
-	}
 	else if (num >= 128 && num <= 2047)
 	{
 		wstr[0] = (192 + (num / 64));
@@ -96,7 +93,7 @@ static int		record_wstr(int num, unsigned char *wstr)
 		wstr[3] = (128 + (num % 524288) % 4096 % 64);
 		return (4);
 	}
-	return (0);
+	return (1);
 }
 
 unsigned char	*get_wlength(int *len, int index, int num, va_list arg)
