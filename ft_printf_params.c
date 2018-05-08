@@ -60,7 +60,10 @@ static void		ft_get_width(t_params *par, va_list arg, int i)
 		}
 	}
 	if (par->width < 0)
+	{
 		par->width *= -1;
+		par->minus = 1;
+	}
 }
 
 static void		ft_get_prec(t_params *par, va_list arg, int i)
@@ -87,6 +90,8 @@ static void		ft_get_prec(t_params *par, va_list arg, int i)
 		par->index += 1;
 	if (par->convert == 'c' || par->convert == '%' || par->prec < 0)
 		par->prec = -1;
+	if (par->convert == 'd' && par->prec < 0 && par->zero == 0)
+		par->prec = 0;
 }
 
 static void		ft_handle_conflicts(t_params *par)
@@ -104,8 +109,8 @@ static void		ft_handle_conflicts(t_params *par)
 		par->convert -= 32;
 	if (par->convert == 'i')
 		par->convert = 'd';
-	if (par->convert == 'd' && par->prec > par->width)
-		par->width = par->prec;
+	if (par->convert == 'u')
+		par->plus = 0;
 }
 
 void			ft_get_param(t_params *par, va_list arg)
@@ -119,6 +124,8 @@ void			ft_get_param(t_params *par, va_list arg)
 		if (par->str[par->index] == 'h' && par->str[par->index + 1] == 'h')
 		{
 			par->mod = '1';
+			if (par->str[par->index + 2] == 'l')
+				par->mod = 'l';
 			par->index += 2;
 		}
 		else if (par->str[par->index] == 'l' && par->str[par->index + 1] == 'l')

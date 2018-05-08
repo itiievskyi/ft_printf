@@ -22,7 +22,7 @@ static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 		ft_printf_wchar(par, arg, ret);
 	else if (par->convert == 'S')
 		ft_printf_wstr(par, arg, ret, 0);
-	else if (par->convert == 'd' || par->convert == 'i')
+	else if (par->convert == 'd' || par->convert == 'i' || par->convert == 'u')
 		ft_printf_i(par, arg, ret, 0);
 }
 

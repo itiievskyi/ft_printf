@@ -69,7 +69,67 @@ int main()
 	printf("\n");
 	printf("ft_printf return = %d\n", b);
 
+	b = printf("\"%+10d\"\n", 4242);
+	b = printf("\"%+10.5d\"\n", 4242);
+	b = printf("\"%10.5d\"\n", 4242);
+	b = printf("\"%10d\"\n", 4242);
+	b = printf("\"%-010.5d\"\n", 4242);
+	b = printf("\"%-10.5d\"\n", 4242);
+	b = printf("\"%-15.10d\"\n", 4242);
+	b = printf("\"%+10d\"\n", -4242);
+	b = printf("\"%10.5d\"\n", -4242);
+	printf("\n");
+	b = ft_printf("\"%+10d\"\n", 4242);
+	b = ft_printf("\"%+10.5d\"\n", 4242);
+	b = ft_printf("\"%10.5d\"\n", 4242);
+	b = ft_printf("\"%10d\"\n", 4242);
+	b = ft_printf("\"%-010.5d\"\n", 4242);	//+
+	b = ft_printf("\"%-10.5d\"\n", 4242);	//+
+	b = ft_printf("\"%-15.10d\"\n", 4242); 	//+
+	b = ft_printf("\"%+10d\"\n", -4242);
+	b = ft_printf("\"%10.5d\"\n", -4242);
+	printf("\n");
+	printf("\"% 0d\"\n", -42);
+	ft_printf("\"% 0d\"\n", -42);
+	printf("\"%-5+d\"\n", -42);
+	ft_printf("\"%-5+d\"\n", -42);
+	printf("\"{%05*d}\"\n", -15, -42);
+	ft_printf("\"{%05*d}\"\n", -15, -42);
+	printf("\"{%0-5d}\"\n", -15);
+	ft_printf("\"{%0-5d}\"\n", -15);
+	printf("\"%#010.5d\"\n", 4242);
+	ft_printf("\"%#010.5d\"\n", 4242);
+	printf("\"%010.5d\"\n", 4242);
+	ft_printf("\"%010.5d\"\n", 4242);
+
+	printf("\"{%05.*d}\"\n", -15, 42);
+	ft_printf("\"{%05.*d}\"\n", -15, 42);
+	printf("\"{%05d}\"\n", 15);
+	ft_printf("\"{%05d}\"\n", 15);
+	printf("\"@main_ftprintf: %####0000 33..1..#d\"\n", 15);
+	ft_printf("\"@main_ftprintf: %####0000 33..1..#d\"\n", 15);
+	printf("\"%0+5d\"\n", -42);
+	ft_printf("\"%0+5d\"\n", -42);
+	printf("\"%05d\"\n", -42);
+	ft_printf("\"%05d\"\n", -42);
+	printf("\"% 10.5d\"\n", 4242);
+	ft_printf("\"% 10.5d\"\n", 4242);
+	printf("\"@moulitest: %.d %.0d\"\n", 0, 0);
+	ft_printf("\"@moulitest: %.d %.0d\"\n", 0, 0);
+	printf("\"@moulitest: %5.d %5.0d\"\n", 0, 0);
+	ft_printf("\"@moulitest: %5.d %5.0d\"\n", 0, 0);
+	printf("\"%hd\"\n", 32768);
+	ft_printf("\"%hd\"\n", 32768);
+	printf("\"%hhd\"\n", -129);
+	ft_printf("\"%hhd\"\n", -129);
+	printf("\"%hhld\"\n", 128);
+	ft_printf("\"%hhld\"\n", 128);
 	ll = 0;
+
+printf("##################= ERRORS #1 =##################\n\n");
+	printf("\"{%015.1     ?y    34543}\"\n", 128);
+	ft_printf("\"{%-15Z}\"\n", 128);
+
 //	system("leaks a.out");
 
 

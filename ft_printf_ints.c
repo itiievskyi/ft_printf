@@ -14,13 +14,10 @@
 
 static void	get_int_length(uintmax_t num, t_params *par)
 {
-	if (par->plus)
-	{
-		par->space = 0;
+	if (num == 0 && par->prec != 0)
 		par->length = 1;
-	}
-	if (num == 0)
-		par->length = 1;
+	else if (num == 0 && par->prec == 0)
+		par->error = -2;
 	else
 	{
 		while (num)
@@ -29,43 +26,65 @@ static void	get_int_length(uintmax_t num, t_params *par)
 			num /= 10;
 		}
 	}
+	if (par->convert == 'd' && par->zero == 1 && par->plus)
+	{
+		par->zero = 0;
+		par->prec = par->width - 1;
+	}
+	if (par->prec >= 0)
+		par->zero = 0;
 }
 
-static void	ft_putnum(uintmax_t num, int *ret, t_params *par)
+int			ft_putnum(uintmax_t num, int *ret, t_params *par)
 {
 	char	ch;
 
+	if (par->error == -2)
+		return (0);
 	if (num >= 10)
 	{
 		ft_putnum(num / 10, ret, par);
 		ch = (num % 10 + '0');
 	}
 	else
-	{
-		ft_put_sign(par, ret);
 		ch = ('0' + num);
-	}
 	ft_write(&ch, ret, 1);
+	return (0);
 }
 
-uintmax_t	ft_get_num(t_params *par, uintmax_t n, intmax_t s, va_list arg)
+uintmax_t	ft_get_uint(t_params *par, uintmax_t n, va_list arg)
 {
-	if (par->convert == 'd' && (par->mod == 'l' || par->mod == 'z'))
-		s = va_arg(arg, long);
-	else if (par->convert == 'd' && par->mod == '2')
-		s = va_arg(arg, long long);
-	else if (par->convert == 'd' && par->mod == 'j')
-		s = va_arg(arg, intmax_t);
-	else if (par->convert == 'd')
-		s = va_arg(arg, int);
-	else if (par->convert == 'u' && (par->mod == 'l' || par->mod == 'z'))
+	if (par->convert == 'u' && (par->mod == 'l' || par->mod == 'z'))
 		n = va_arg(arg, unsigned long);
 	else if (par->convert == 'u' && par->mod == '2')
 		n = va_arg(arg, unsigned long long);
 	else if (par->convert == 'u' && par->mod == 'j')
 		n = va_arg(arg, uintmax_t);
+	else if (par->convert == 'u' && par->mod == 'h')
+		n = (unsigned short)va_arg(arg, int);
+	else if (par->convert == 'u' && par->mod == '1')
+		n = (unsigned char)va_arg(arg, int);
 	else if (par->convert == 'u')
 		n = va_arg(arg, unsigned int);
+	return (n);
+}
+
+uintmax_t	ft_get_num(t_params *par, uintmax_t n, intmax_t s, va_list arg)
+{
+	if (par->convert == 'u')
+		n = ft_get_uint(par, 0, arg);
+	else if (par->convert == 'd' && (par->mod == 'l' || par->mod == 'z'))
+		s = va_arg(arg, long);
+	else if (par->convert == 'd' && par->mod == '2')
+		s = va_arg(arg, long long);
+	else if (par->convert == 'd' && par->mod == 'j')
+		s = va_arg(arg, intmax_t);
+	else if (par->convert == 'd' && par->mod == 'h')
+		s = (short)va_arg(arg, int);
+	else if (par->convert == 'd' && par->mod == '1')
+		s = (signed char)va_arg(arg, int);
+	else if (par->convert == 'd')
+		s = va_arg(arg, int);
 	if (par->convert == 'd' && s < 0)
 	{
 		par->plus = '-';
@@ -84,16 +103,22 @@ void		ft_printf_i(t_params *par, va_list arg, int *ret, int a)
 	num = ft_get_num(par, 0, 0, arg);
 	get_int_length(num, par);
 	if (par->space && !par->plus)
+	{
 		ft_write(" ", ret, 1);
-	if (par->error == 0 && (a = par->width - par->length) > 0)
+		a--;
+	}
+	if (par->prec > (int)par->length)
+		a += par->width - par->prec;
+	else
+		a += par->width - par->length;
+	if (par->error != 1 && a > 0)
 	{
 		if (par->minus)
-			ft_putnum(num, ret, par);
-		while (a--)
-			ft_check_pad(par, ret);
+			ft_place_int(par, ret, &a, num);
+		ft_int_pad(par, ret, &a);
 		if (!(par->minus))
-			ft_putnum(num, ret, par);
+			ft_place_int(par, ret, &a, num);
 	}
-	else if (par->error == 0)
-		ft_putnum(num, ret, par);
+	else if (par->error != 1)
+		ft_place_int(par, ret, &a, num);
 }

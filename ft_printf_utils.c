@@ -14,19 +14,47 @@
 
 void		ft_check_pad(t_params *par, int *ret)
 {
-	if (par->zero >= 0 && par->convert == 'd' && par->prec == -1 && par->plus)
-		ft_write(" ", ret, 1);
-	else if (par->convert == 'd' && par->prec >= 0 &&
-		((par->zero++ + par->length) <= (size_t)par->prec))
-		ft_write("0", ret, 1);
-	else if (par->zero && par->prec && !par->hash)
+	if (par->zero)
 		ft_write("0", ret, 1);
 	else
 		ft_write(" ", ret, 1);
 }
 
-void		ft_put_sign(t_params *par, int *ret)
+void		ft_int_pad(t_params *par, int *ret, int *a)
+{
+	if (par->minus)
+	{
+		if (!par->plus)
+			while ((*a)-- > 0)
+				ft_check_pad(par, ret);
+		else
+			while ((*a)-- > 0)
+				ft_check_pad(par, ret);
+	}
+	else
+	{
+		if (!par->plus)
+			while ((*a)-- > 0)
+				ft_check_pad(par, ret);
+		else
+			while ((*a)-- > 1)
+				ft_check_pad(par, ret);
+	}
+}
+
+void		ft_put_sign(t_params *par, int *ret, int *a)
 {
 	if (par->plus)
+	{
 		ft_write(&par->plus, ret, 1);
+		*a = *a - 1;
+	}
+}
+
+void		ft_place_int(t_params *par, int *ret, int *a, uintmax_t num)
+{
+	ft_put_sign(par, ret, a);
+	while (par->prec-- > (int)par->length)
+		ft_write("0", ret, 1);
+	ft_putnum(num, ret, par);
 }
