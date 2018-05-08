@@ -63,8 +63,11 @@ unsigned char	*get_wlength(int *len, int index, int num, va_list arg);
 void			ft_printf_i(t_params *par, va_list arg, int *ret, int len);
 void			ft_put_sign(t_params *par, int *ret, int *a);
 uintmax_t		ft_get_num(t_params *par, uintmax_t n, intmax_t s, va_list arg);
+uintmax_t		ft_get_uint(t_params *par, uintmax_t n, va_list arg);
 int				ft_putnum(uintmax_t num, int *ret, t_params *par);
 void			ft_place_int(t_params *par, int *ret, int *a, uintmax_t num);
 void			ft_int_pad(t_params *par, int *ret, int *a);
+int				ft_puthex(uintmax_t num, int *ret, t_params *par);
+void			ft_printf_hex(t_params *par, va_list arg, int *ret, int a);
 
 #endif

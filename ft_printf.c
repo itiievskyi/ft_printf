@@ -24,6 +24,8 @@ static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 		ft_printf_wstr(par, arg, ret, 0);
 	else if (par->convert == 'd' || par->convert == 'i' || par->convert == 'u')
 		ft_printf_i(par, arg, ret, 0);
+	else if (par->convert == 'x' || par->convert == 'X')
+		ft_printf_hex(par, arg, ret, 0);
 }
 
 static void	ft_start_printf(va_list arg, const char *fmt, size_t i, int *ret)

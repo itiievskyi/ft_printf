@@ -54,17 +54,17 @@ int			ft_putnum(uintmax_t num, int *ret, t_params *par)
 
 uintmax_t	ft_get_uint(t_params *par, uintmax_t n, va_list arg)
 {
-	if (par->convert == 'u' && (par->mod == 'l' || par->mod == 'z'))
+	if ((par->mod == 'l' || par->mod == 'z'))
 		n = va_arg(arg, unsigned long);
-	else if (par->convert == 'u' && par->mod == '2')
+	else if (par->mod == '2')
 		n = va_arg(arg, unsigned long long);
-	else if (par->convert == 'u' && par->mod == 'j')
+	else if (par->mod == 'j')
 		n = va_arg(arg, uintmax_t);
-	else if (par->convert == 'u' && par->mod == 'h')
+	else if (par->mod == 'h')
 		n = (unsigned short)va_arg(arg, int);
-	else if (par->convert == 'u' && par->mod == '1')
+	else if (par->mod == '1')
 		n = (unsigned char)va_arg(arg, int);
-	else if (par->convert == 'u')
+	else
 		n = va_arg(arg, unsigned int);
 	return (n);
 }

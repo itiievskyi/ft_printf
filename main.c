@@ -59,8 +59,6 @@ int main()
 
 	printf("##################= INTEGERS #1 =##################\n\n");
 
-	long long ll = 1844674407370955161;
-
 	b = printf("@main_ftprintf: %####0000 33..1d", 256);
 	printf("\n");
 	if ((printf("printf return = %d\n", b)) < 0)
@@ -124,12 +122,71 @@ int main()
 	ft_printf("\"%hhd\"\n", -129);
 	printf("\"%hhld\"\n", 128);
 	ft_printf("\"%hhld\"\n", 128);
-	ll = 0;
 
 printf("##################= ERRORS #1 =##################\n\n");
 	printf("\"{%015.1     ?y    34543}\"\n", 128);
 	ft_printf("\"{%-15Z}\"\n", 128);
 
+printf("##################= HEX #1 =##################\n\n");
+	printf("\"%5.2x\"\n", 5427);
+	ft_printf("\"%5.2x\"\n", 5427);
+	printf("\"%# 08x\"\n", 5427);
+	ft_printf("\"%# 08x\"\n", 5427);
+	printf("\"% 08x\"\n", 5427);
+	ft_printf("\"% 08x\"\n", 5427);
+	printf("\"%#- 08x\"\n", 5427);
+	ft_printf("\"%#- 08x\"\n", 5427);
+	printf("\"%# 36x\"\n", 1231333);
+	ft_printf("\"%# 36x\"\n", 1231333);
+	printf("\"%#+36x\"\n", 3434);
+	ft_printf("\"%#+36x\"\n", 3434);
+	printf("\"%# 3.10X\"\n", 1231333);
+	ft_printf("\"%# 3.10X\"\n", 1231333);
+	printf("\"% X\"\n", 1231333);
+	ft_printf("\"% X\"\n", 1231333);
+	printf("\"%#x\"\n", 0);
+	ft_printf("\"%#x\"\n", 0);
+	printf("\"%#08x\"\n", 42);
+	ft_printf("\"%#08x\"\n", 42);
+	printf("\"@moulitest: %#.x %#.0x\"\n", 0, 0);
+	ft_printf("\"@moulitest: %#.x %#.0x\"\n", 0, 0);
+
+printf("##################= SPEED #1 =##################\n\n");
+/*
+	int i = 2147483647;
+	long l = 2147483647;
+	long long ll = 9223372036854775807;
+	char c = 0;
+	intmax_t im = 9223372036854775807;
+
+	ft_printf("\n");
+	ft_printf("%%\n");
+	ft_printf("%d\n", 42);
+	ft_printf("%d%d\n", 42, 41);
+	ft_printf("%d%d%d\n", 42, 43, 44);
+	ft_printf("%ld\n", l);
+	ft_printf("%lld\n", ll);
+	ft_printf("%x %X %p %20.15d\n", 505, 505, &ll, 54321);
+	ft_printf("%-10d % d %+d %010d %hhd\n", 3, 3, 3, 1, c);
+	ft_printf("%jd %zd %u %o %#08x\n", im, (size_t)i, i, 40, 42);
+	ft_printf("%x %#X %S %s%s\n", 1000, 1000, L"ݗݜशব", "test", "test2");
+	ft_printf("%s%s%s\n", "test", "test", "test");
+	ft_printf("%C\n", 15000);
+
+	printf("\n");
+	printf("%%\n");
+	printf("%d\n", 42);
+	printf("%d%d\n", 42, 41);
+	printf("%d%d%d\n", 42, 43, 44);
+	printf("%ld\n", l);
+	printf("%lld\n", ll);
+	printf("%x %X %p %20.15d\n", 505, 505, &ll, 54321);
+	printf("%-10d % d %+d %010d %hhd\n", 3, 3, 3, 1, c);
+	printf("%jd %zd %u %o %#08x\n", im, (size_t)i, i, 40, 42);
+	printf("%x %#X %S %s%s\n", 1000, 1000, L"ݗݜशব", "test", "test2");
+	printf("%s%s%s\n", "test", "test", "test");
+	printf("%C\n", 15000);
+*/
 //	system("leaks a.out");
 
 
