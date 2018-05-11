@@ -199,14 +199,14 @@ printf("##################= OCTAL #1 =##################\n\n");
 
 printf("##################= N #1 =##################\n\n");
 
-	long count;
+	const long count;
 	printf("this%n is a test\n", &count);
 	printf("%d\n", count);
 	ft_printf("this%n is a test\n", &count);
 	ft_printf("%d\n", count);
-	printf("thisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaathisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaa%n", &count);
+	printf("Kashim a 1001 histoires à raconter\n%n", &count);
 	printf("%d\n", count);
-	ft_printf("thisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaathisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaa%n", &count);
+	ft_printf("Kashim a 1001 histoires à raconter\n%n", &count);
 	ft_printf("%d\n", count);
 
 //	ft_printf("\"%hd\t%n\"\n", 32768);

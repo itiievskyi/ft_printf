@@ -29,7 +29,8 @@ static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 	else if (par->convert == 'o')
 		ft_printf_oct(par, arg, ret, 0);
 	else if (par->convert == 'n')
-		ft_printf_n(par, arg, ret, 0);
+		*va_arg(arg, int *) = *ret;
+	//	ft_printf_n(par, arg, ret, 0);
 }
 
 static void	ft_start_printf(va_list arg, const char *fmt, size_t i, int *ret)
