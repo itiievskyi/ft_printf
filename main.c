@@ -151,8 +151,54 @@ printf("##################= HEX #1 =##################\n\n");
 	printf("\"@moulitest: %#.x %#.0x\"\n", 0, 0);
 	ft_printf("\"@moulitest: %#.x %#.0x\"\n", 0, 0);
 
-printf("##################= SPEED #1 =##################\n\n");
+printf("##################= HEX #2 =##################\n\n");
+
+	printf("\"%.2hX\"\n", -1271782053);
+	ft_printf("\"%.2hX\"\n", -1271782053);
+
+printf("##################= OCTAL #1 =##################\n\n");
+
+	printf("\"%#08o\"\n", 88);
+	ft_printf("\"%#08o\"\n", 88);
+
+	printf("\"%#o\"\n", 42);
+	ft_printf("\"%#o\"\n", 42);
+	printf("\"%#1o\"\n", 42);
+	ft_printf("\"%#1o\"\n", 42);
+	printf("\"%#4o\"\n", 42);
+	ft_printf("\"%#4o\"\n", 42);
+	printf("\"%04o\"\n", 42);
+	ft_printf("\"%04o\"\n", 42);
+
+	printf("\"%#04.10o\"\n", 1);
+	ft_printf("\"%#04.10o\"\n", 1);
+	printf("\"%#0 4.10o\"\n", 42);
+	ft_printf("\"%#0 4.10o\"\n", 42);
+	printf("\"%#0-4.10o\"\n", 65);
+	ft_printf("\"%#0-4.10o\"\n", 65);
+
+	printf("\"%-18.10o\"\n", 34);
+	ft_printf("\"%-18.10o\"\n", 34);
+	printf("\"%-18.o\"\n", 111);
+	ft_printf("\"%-18.o\"\n", 111);
+
+	printf("\"@moulitest: %o\"\n", 0);
+	ft_printf("\"@moulitest: %o\"\n", 0);
+
+	printf("\"@moulitest: %.0o\"\n", 0);
+	ft_printf("\"@moulitest: %.0o\"\n", 0);
+
+	printf("\"@moulitest: %#o\"\n", 0);
+	ft_printf("\"@moulitest: %#o\"\n", 0);
+
+	printf("\"@moulitest: %.o\"\n", 0);
+	ft_printf("\"@moulitest: %.o\"\n", 0);
+
+	printf("\"@moulitest: %#.0o\"\n", 0);
+	ft_printf("\"@moulitest: %#.0o\"\n", 0);
 /*
+printf("##################= SPEED #1 =##################\n\n");
+
 	int i = 2147483647;
 	long l = 2147483647;
 	long long ll = 9223372036854775807;

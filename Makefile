@@ -40,6 +40,7 @@ SOURCES =	ft_printf.c\
 			ft_printf_ints.c\
 			ft_strnchr.c\
 			ft_printf_hex.c\
+			ft_printf_oct.c\
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

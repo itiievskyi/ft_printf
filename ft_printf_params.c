@@ -103,7 +103,7 @@ static void		ft_handle_conflicts(t_params *par)
 		par->mod = 'l';
 		par->convert += 32;
 	}
-	if ((par->plus || ft_strchr("xXu", par->convert) || par->hash))
+	if ((par->plus || ft_strchr("xXuo", par->convert) || par->hash))
 		par->space = 0;
 	if ((par->convert == 'c' || par->convert == 's') && par->mod == 'l')
 		par->convert -= 32;
@@ -111,9 +111,12 @@ static void		ft_handle_conflicts(t_params *par)
 		par->convert = 'd';
 	if (par->convert == 'u')
 		par->plus = 0;
-	if (par->zero && par->hash && par->prec < 0)
+	if (par->zero && par->hash && par->prec < 0 && par->convert != 'o')
 		par->prec = (int)par->width - 2;
-	if ((par->convert == 'x' || par->convert == 'X') && par->hash)
+//	if (par->zero && par->hash && par->prec < 0 && par->convert == 'o')
+//		par->prec = (int)par->width;
+	if ((par->convert == 'x' || par->convert == 'X')
+		&& par->hash)
 		par->zero = 0;
 }
 
