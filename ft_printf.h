@@ -73,5 +73,6 @@ int				ft_puthex(uintmax_t num, int *ret, t_params *par);
 int				ft_putoct(uintmax_t num, int *ret, t_params *par);
 void			ft_printf_hex(t_params *par, va_list arg, int *ret, int a);
 void			ft_printf_oct(t_params *par, va_list arg, int *ret, int a);
+void			ft_printf_n(t_params *par, va_list arg, int *ret, int a);
 
 #endif

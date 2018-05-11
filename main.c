@@ -196,6 +196,23 @@ printf("##################= OCTAL #1 =##################\n\n");
 
 	printf("\"@moulitest: %#.0o\"\n", 0);
 	ft_printf("\"@moulitest: %#.0o\"\n", 0);
+
+printf("##################= N #1 =##################\n\n");
+
+	long count;
+	printf("this%n is a test\n", &count);
+	printf("%d\n", count);
+	ft_printf("this%n is a test\n", &count);
+	ft_printf("%d\n", count);
+	printf("thisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaathisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaa%n", &count);
+	printf("%d\n", count);
+	ft_printf("thisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaathisaaaadvthisaaaadvthisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaadhisaaaadvthisaaaadvthisaaa%n", &count);
+	ft_printf("%d\n", count);
+
+//	ft_printf("\"%hd\t%n\"\n", 32768);
+
+
+
 /*
 printf("##################= SPEED #1 =##################\n\n");
 
