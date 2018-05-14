@@ -26,6 +26,10 @@ static void	get_int_length(uintmax_t num, t_params *par)
 			num /= 10;
 		}
 	}
+	if (par->apostrophe && (par->apostrophe = par->length) < 4)
+		par->apostrophe = 0;
+	if (par->apostrophe)
+		par->length += par->apostrophe / 3;
 	if (par->convert == 'd' && par->zero == 1 && par->plus)
 	{
 		par->zero = 0;
@@ -48,6 +52,12 @@ int			ft_putnum(uintmax_t num, int *ret, t_params *par)
 	}
 	else
 		ch = ('0' + num);
+	if (par->apostrophe)
+	{
+		if (par->apostrophe % 3 == 0)
+			ft_write(",", ret, 1);
+		par->apostrophe -= 1;
+	}
 	ft_write(&ch, ret, 1);
 	return (0);
 }

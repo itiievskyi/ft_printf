@@ -49,7 +49,7 @@ void			ft_printf_wchar(t_params *par, va_list arg, int *ret)
 	ft_bzero(wch, 4);
 	get_wchar(wch, &len, (va_arg(arg, int)));
 	if (par->prec >= 0 && (par->prec < len))
-		(wch)[par->prec] = '\0';
+		par->prec = len;
 	if (par->error == 0 && (a = par->width - len) > 0)
 	{
 		if (par->minus)
@@ -96,10 +96,11 @@ static int		record_wstr(int num, unsigned char *wstr)
 	return (1);
 }
 
-unsigned char	*get_wlength(int *len, int index, int num, va_list arg)
+unsigned char	*get_wlength(int *len, int index, t_params *par, va_list arg)
 {
 	unsigned char	*wstr;
 	wchar_t			*str;
+	int				num;
 
 	if (!(str = ft_wstrdup(va_arg(arg, wchar_t*))))
 		return (NULL);
@@ -107,13 +108,29 @@ unsigned char	*get_wlength(int *len, int index, int num, va_list arg)
 	{
 		num = (int)str[index++];
 		if (num >= 0 && num <= 127)
+		{
+			if(par->prec > -1 && (*len + 1) > par->prec)
+				break ;
 			*len += 1;
+		}
 		else if (num >= 128 && num <= 2047)
+		{
+			if(par->prec > -1 && (*len + 2) > par->prec)
+				break ;
 			*len += 2;
+		}
 		else if (num >= 2048 && num <= 65535)
+		{
+			if(par->prec > -1 && (*len + 3) > par->prec)
+				break ;
 			*len += 3;
+		}
 		else if (num >= 65536 && num <= 1114111)
+		{
+			if(par->prec > -1 && (*len + 4) > par->prec)
+				break ;
 			*len += 4;
+		}
 	}
 	if (!(wstr = (unsigned char*)malloc(sizeof(unsigned char) * (int)(*len))))
 		return (NULL);
@@ -131,7 +148,7 @@ void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len)
 	unsigned char	*wstr;
 
 	wstr = NULL;
-	if (!(wstr = get_wlength(&len, 0, 0, arg)))
+	if (!(wstr = get_wlength(&len, 0, par, arg)))
 	{
 		ft_write_wstring((unsigned char *)"(null)", ret, 6);
 		par->error = 1;

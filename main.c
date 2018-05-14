@@ -12,9 +12,11 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
+#include "locale.h"
 
 int main()
 {
+	setlocale(LC_ALL, "en_US.UTF-8");
 	int b = 0;
 	char *line = "bbbbb";
 	char *line2 = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -271,7 +273,72 @@ printf("##################= STRINGS #2 =##################\n\n");
 	ft_printf("\"{%*s}\"\n", 5, 0);
 	printf("\"{%5s}\"\n", 0);
 	ft_printf("\"{%5s}\"\n", 0);
-	
+
+printf("##################= UNICODE #2 =##################\n\n");
+
+	b = printf("\"%.8S\"\n", L"我是一只猫。");
+	printf("printf return = %d\n", b);
+	b = ft_printf("\"%.8S\"\n", L"我是一只猫。");
+	printf("ft_printf return = %d\n", b);
+
+printf("##################= APOSTROPHE =##################\n\n");
+
+	printf("\"%' 0d\"\n", -420);
+	ft_printf("\"%' 0d\"\n", -420);
+	printf("\"%'-5+d\"\n", -42000000);
+	ft_printf("\"%'-5+d\"\n", -42000000);
+	printf("\"{%'05*d}\"\n", -15, -4200011);
+	ft_printf("\"{%'05*d}\"\n", -15, -4200011);
+	printf("\"{%'05*d}\"\n", -15, 0);
+	ft_printf("\"{%'05*d}\"\n", -15, 0);
+	printf("\"%'-zd\"\n", 34545535235353);
+	ft_printf("\"%'-zd\"\n", 34545535235353);
+
+printf("##################= FLOAT =##################\n\n");
+
+	float f = 10;
+	float ff = 3.3333333333333333333333333333;
+	printf("\"{%f}{%F}\"\n", 1.42, 1.42);
+	ft_printf("\"{%f}{%F}\"\n", 1.42, 1.42);
+	printf("\n");
+	printf("\"{%#f}{%#F}\"\n", 10.0, 10.0);
+	ft_printf("\"{%#f}{%#F}\"\n", 10.0, 10.0);
+	printf("\"{%.0f}{%.0F}\"\n", f, f);
+	ft_printf("\"{%.0f}{%.0F}\"\n", f, f);
+	printf("\"{%.f}{%.F}\"\n", f, f);
+	ft_printf("\"{%.f}{%.F}\"\n", f, f);
+	printf("\"{%#.0f}{%#.0F}\"\n", f, f);
+	ft_printf("\"{%#.0f}{%#.0F}\"\n", f, f);
+	printf("\"{%#.f}{%#.F}\"\n", f, f);
+	ft_printf("\"{%#.f}{%#.F}\"\n", f, f);
+	printf("\"{%0.f}{%#0.F}\"\n", f, f);
+	ft_printf("\"{%0.f}{%#0.F}\"\n", f, f);
+	printf("\"{%010f}{%#06F}\"\n", f, f);
+	ft_printf("\"{%010f}{%#06F}\"\n", f, f);
+	printf("\"{%#.f}{%#.F}\"\n", ff, ff);
+	ft_printf("\"{%#.f}{%#.F}\"\n", ff, ff);
+	printf("\"{%#f}{%#F}\"\n", ff, ff);
+	ft_printf("\"{%#f}{%#F}\"\n", ff, ff);
+	printf("\"{%.10f}{%.10F}\"\n", ff, ff);
+	ft_printf("\"{%.10f}{%.10F}\"\n", ff, ff);
+	printf("\"{%f}{%F}\"\n", 1.42, 1.42);
+	ft_printf("\"{%f}{%F}\"\n", 1.42, 1.42);
+	printf("\"{%f}{%F}\"\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
+	ft_printf("\"{%f}{%F}\"\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
+	printf("\"{%.10f}{%.10F}\"\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
+	ft_printf("\"{%.10f}{%.10F}\"\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
+
+printf("##################= UNICODE #3 =##################\n\n");
+
+	b = printf("\"%.1C\"\n", L'我');
+	printf("printf return = %d\n", b);
+	b = ft_printf("\"%.1C\"\n", L'我');
+	printf("ft_printf return = %d\n", b);
+	b = printf("\"%.C\"\n", L'我');
+	printf("printf return = %d\n", b);
+	b = ft_printf("\"%.C\"\n", L'我');
+	printf("ft_printf return = %d\n", b);
+
 /*
 printf("##################= SPEED #1 =##################\n\n");
 
