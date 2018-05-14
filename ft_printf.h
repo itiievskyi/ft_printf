@@ -47,6 +47,7 @@ typedef struct	s_params
 	char		plus;
 	int			apostrophe;
 	int			error;
+	int			p;
 }				t_params;
 
 t_params		*ft_get_struct(const char *fmt);
@@ -56,6 +57,7 @@ void			ft_write(const char *c, int *ret, int size);
 void			ft_write_string(const char *s, int index, int *ret);
 void			ft_write_wstring(unsigned char *s, int *ret, int len);
 void			ft_printf_char(t_params *par, va_list arg, int *ret);
+void			ft_printf_c_err(t_params *par, int *ret);
 void			ft_printf_string(t_params *par, va_list arg, int *ret, int a);
 void			ft_printf_wchar(t_params *par, va_list arg, int *ret);
 void			ft_printf_wstr(t_params *par, va_list arg, int *ret, int len);

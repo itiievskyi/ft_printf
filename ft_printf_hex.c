@@ -65,8 +65,16 @@ void		ft_place_hex(t_params *par, int *ret, int *a, uintmax_t num)
 		ft_write(&ch, ret, 1);
 		*a = *a - 2;
 	}
-	while (par->prec-- > (int)par->length)
+	if (par->p && num == 0)
+	{
 		ft_write("0", ret, 1);
+		ft_write("x", ret, 1);
+		while (par->prec-- > (int)par->length)
+			ft_write("0", ret, 1);
+	}
+	else
+		while (par->prec-- > (int)par->length)
+			ft_write("0", ret, 1);
 	ft_puthex(num, ret, par);
 }
 
@@ -102,6 +110,8 @@ void		ft_printf_hex(t_params *par, va_list arg, int *ret, int a)
 		a += par->width - par->prec;
 	else
 		a += par->width - par->length;
+	if (par->p && num == 0 && par->minus)
+		a = a - 2;
 	if (par->error != 1 && a > 0)
 	{
 		if (par->minus)

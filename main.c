@@ -209,10 +209,69 @@ printf("##################= N #1 =##################\n\n");
 	ft_printf("Kashim a 1001 histoires à raconter\n%n", &count);
 	ft_printf("%d\n", count);
 
+printf("##################= POINTERS #1 =##################\n\n");
+
+	size_t Gb = 1024*1024;
+	char *a1 = (char *)malloc(2 * Gb * sizeof(char));
+	char *b1 = (char *)malloc(2 * Gb * sizeof(char));
+	printf("use %%X: a=%X\n", a1);
+	printf("use %%X: b=%X\n", b1);
+	printf("use %%p: a=%p\n", a1);
+	printf("use %%p: b=%p\n", b1);
+	ft_printf("use %%X: a=%X\n", a1);
+	ft_printf("use %%X: b=%X\n", b1);
+	ft_printf("use %%p: a=%p\n", a1);
+	ft_printf("use %%p: b=%p\n", b1);
+	printf("\n");
+
+	printf("%.0p, %.p\n", 0, 0);
+	ft_printf("%.0p, %.p\n", 0, 0);
+
+	printf("{%05p}\n", 0);
+	ft_printf("{%05p}\n", 0);
+
+	printf("x = {%05lx}\n", 0);
+	ft_printf("x = {%05lx}\n", 0);
+
+	printf("{%3*p}\n", 10, 0);
+	ft_printf("{%3*p}\n", 10, 0);
+
+	printf("\"%.p, %.0p\"\n", 0, 0);
+	ft_printf("\"%.p, %.0p\"\n", 0, 0);
+
+	printf("\"%2.9p\"\n", 1234);
+	ft_printf("\"%2.9p\"\n", 1234);
+
+	printf("\"{%-15p}\"\n", 0);
+	ft_printf("\"{%-15p}\"\n", 0);
 //	ft_printf("\"%hd\t%n\"\n", 32768);
 
+printf("##################= ERRORS #2 =##################\n\n");
 
+	printf("\"{%10RABC}\"\n");
+	ft_printf("\"{%10RABC}\"\n");
+	printf("\"{%10R}\"\n");
+	ft_printf("\"{%10R}\"\n");
+	printf("\"{%10}\"\n");
+	ft_printf("\"{%10}\"\n");
+	printf("% Zoooo\n");
+	ft_printf("% Zoooo\n");
 
+printf("##################= STRINGS #2 =##################\n\n");
+
+	printf("\"{%05.s}\"\n", 0);
+	ft_printf("\"{%05.s}\"\n", 0);
+	printf("\"{%5.s}\"\n", 0);
+	ft_printf("\"{%5.s}\"\n", 0);
+	printf("\"{%.s}\"\n", 0);
+	ft_printf("\"{%.s}\"\n", 0);
+	printf("\"{%s}\"\n", 0);
+	ft_printf("\"{%s}\"\n", 0);
+	printf("\"{%*s}\"\n", 5, 0);
+	ft_printf("\"{%*s}\"\n", 5, 0);
+	printf("\"{%5s}\"\n", 0);
+	ft_printf("\"{%5s}\"\n", 0);
+	
 /*
 printf("##################= SPEED #1 =##################\n\n");
 

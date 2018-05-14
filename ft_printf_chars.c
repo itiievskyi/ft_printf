@@ -40,3 +40,30 @@ void		ft_printf_char(t_params *par, va_list arg, int *ret)
 	else
 		ft_write(&ch, ret, 1);
 }
+
+void		ft_printf_c_err(t_params *par, int *ret)
+{
+	int		a;
+	char	ch;
+
+	if (par->convert == 'c')
+		ch = par->str[par->ret_point - 1];
+	if (par->prec == 0)
+		ch = '\0';
+	if ((a = par->width - 1) > 0)
+	{
+		if (par->minus)
+			ft_write(&ch, ret, 1);
+		while (a--)
+		{
+			if (par->zero)
+				ft_write("0", ret, 1);
+			else
+				ft_write(" ", ret, 1);
+		}
+		if (!(par->minus))
+			ft_write(&ch, ret, 1);
+	}
+	else
+		ft_write(&ch, ret, 1);
+}

@@ -33,5 +33,6 @@ t_params	*ft_get_struct(const char *fmt)
 	par->plus = 0;
 	par->apostrophe = 0;
 	par->error = 0;
+	par->p = 0;
 	return (par);
 }

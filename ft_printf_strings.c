@@ -12,12 +12,24 @@
 
 #include "ft_printf.h"
 
+static int	par_check_str(t_params *par)
+{
+	if (par->prec == -1 /*&& par->width == 0*/ && par->zero == 0)
+		return (0);
+	return (1);
+}
+
 void		ft_printf_string(t_params *par, va_list arg, int *ret, int a)
 {
 	if (!(par->data = ft_strdup(va_arg(arg, char*))))
 	{
-		par->error = 1;
-		ft_write_string("(null)", 0, ret);
+		if (!par_check_str(par))
+		{
+			par->error = 1;
+			ft_write_string("(null)", 0, ret);
+		}
+		else
+			par->data = ft_strdup("\0");
 	}
 	else if (par->prec >= 0 && (par->prec < (int)ft_strlen(par->data)))
 		(par->data)[par->prec] = '\0';

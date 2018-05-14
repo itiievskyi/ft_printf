@@ -14,7 +14,9 @@
 
 static void	ft_write_arg(t_params *par, va_list arg, int *ret)
 {
-	if (par->convert == 's')
+	if (par->convert == 'c' && par->error == 3)
+		ft_printf_c_err(par, ret);
+	else if (par->convert == 's')
 		ft_printf_string(par, arg, ret, 0);
 	else if (par->convert == 'c' || par->convert == '%')
 		ft_printf_char(par, arg, ret);

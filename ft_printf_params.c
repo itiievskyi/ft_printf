@@ -17,8 +17,10 @@ static void		ft_get_flags(t_params *par, size_t i, size_t len)
 	while ((par->str)[len] != '\0' &&
 		ft_strchr("0123456789# -+\'hlLjtzq.*", (par->str)[len]))
 		len++;
-	if (ft_strchr("diouxXDOUeEfFgGaAcCsSPn%%", (par->str)[len]))
+	if ((par->str)[len])
 		par->convert = (par->str)[len];
+	if (!(ft_strchr("diouxXDOUeEfFgGaAcCsSpn%%", (par->str)[len])))
+		par->convert = 'c';
 	if (par->convert == '\0')
 		par->error = 1;
 	if (ft_strnchr(par->str, '+', len))
@@ -29,16 +31,15 @@ static void		ft_get_flags(t_params *par, size_t i, size_t len)
 		par->hash = 1;
 	if (ft_strnchr(par->str, ' ', len))
 		par->space = 1;
+	if (ft_strnchr(par->str, '\'', len))
+		par->apostrophe = 1;
 	while (par->error == 0 && (i < len && ft_strchr("#0 -+\'", (par->str)[i])))
-	{
-		if ((par->str)[i] == '0')
+		if ((par->str)[i++] == '0')
 			par->zero = 1;
-		if ((par->str)[i] == '\'')
-			par->apostrophe = 1;
-		i++;
-	}
 	par->index = i;
 	par->ret_point = par->ret_point + len + 1 - ((int)par->error) / 1;
+	if (!(ft_strchr("diouxXDOUeEfFgGaAcCsSpn%%", (par->str)[len])))
+		par->error = 3;
 }
 
 static void		ft_get_width(t_params *par, va_list arg, int i)
@@ -96,6 +97,13 @@ static void		ft_get_prec(t_params *par, va_list arg, int i)
 
 static void		ft_handle_conflicts(t_params *par)
 {
+	if (par->convert == 'p')
+	{
+		par->convert = 'x';
+		par->p = 1;
+		par->hash = 1;
+		par->mod = 'l';
+	}
 	if ((par->zero && par->minus))
 		par->zero = 0;
 	if (par->convert == 'D' || par->convert == 'U' || par->convert == 'O')
@@ -122,7 +130,7 @@ void			ft_get_param(t_params *par, va_list arg)
 {
 	ft_get_flags(par, 0, 0);
 	ft_get_width(par, arg, 0);
-	while (!ft_strchr("hlLjtzqdiouxXDOUeEfFgGaAcCsSPn%%", par->str[par->index]))
+	while (!ft_strchr("hlLjtzqdiouxXDOUeEfFgGaAcCsSpn%%", par->str[par->index]))
 		ft_get_prec(par, arg, 0);
 	if (ft_strchr("hlLjtzq", par->str[par->index]))
 	{
