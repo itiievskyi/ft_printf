@@ -15,9 +15,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <strings.h>
 
 int				ft_atoi(const char *str);
 int				ft_printf(const char *format, ...);
