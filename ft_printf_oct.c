@@ -41,7 +41,7 @@ int			ft_putoct(uintmax_t num, int *ret, t_params *par)
 	if (num >= 8)
 	{
 		ft_putoct(num / 8, ret, par);
-			ch = (set[num % 8]);
+		ch = (set[num % 8]);
 	}
 	else
 		ch = (set[num % 8]);

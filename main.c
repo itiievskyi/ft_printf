@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
-#include "locale.h"
+//#include "locale.h"
 
 int main()
 {
-	setlocale(LC_ALL, "en_US.UTF-8");
+//	setlocale(LC_ALL, "en_US.UTF-8");
 	int b = 0;
 	char *line = "bbbbb";
 	char *line2 = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -363,6 +363,12 @@ printf("##################= FLOAT =##################\n\n");
 	printf("\"{%+10Lf}{%-15LF}\"\n", (long double)1.42, (long double)1.42);
 	ft_printf("\"{%+10Lf}{%-15LF}\"\n", (long double)1.42, (long double)1.42);
 
+printf("##################= UNICODE #4 =##################\n\n");
+
+	printf("\"%.1C\"\n", L'ø');
+	ft_printf("\"%.1C\"\n", L'ø');
+	printf("\"%.1C\"\n", L'\x01\xc3\xb8');
+	ft_printf("\"%.1C\"\n", L'\x01\xc3\xb8');
 
 /*
 printf("##################= SPEED #1 =##################\n\n");

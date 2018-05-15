@@ -14,7 +14,7 @@
 
 static int	par_check_str(t_params *par)
 {
-	if (par->prec == -1 /*&& par->width == 0*/ && par->zero == 0)
+	if (par->prec == -1 && par->zero == 0)
 		return (0);
 	return (1);
 }

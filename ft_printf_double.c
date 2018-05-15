@@ -53,20 +53,10 @@ static void	ft_putmantissa(double num, int *ret, t_params *par)
 
 	while (par->prec-- > 0)
 	{
-//		if ((double)(num * 10) - (double)((num)))
-//		{
-//			printf("\nnum = %.20f\n", num);
-			ch = ((unsigned int)(num * 10)) + '0';
-//			printf("%u\n", (unsigned int)(num * 10));
-//			printf("\nch = %u\n", ch);
-			num *= 10 + 0.0000000000001;
-//			printf("num = %Lf\n", num);
-			num -= (unsigned int)(num);
-//			printf("\nnum = %.20f\n", num);
-			ft_write(&ch, ret, 1);
-//		}
-//		else
-//			ft_write("0", ret, 1);
+		ch = ((unsigned int)(num * 10)) + '0';
+		num *= 10 + 0.0000000000001;
+		num -= (unsigned int)(num);
+		ft_write(&ch, ret, 1);
 	}
 }
 
@@ -79,33 +69,8 @@ static void	ft_place_double(t_params *par, int *ret, int *a, double num)
 		ft_write(".", ret, 1);
 	if (par->prec)
 		ft_putmantissa(num - (intmax_t)num, ret, par);
-//	while (par->prec-- > 0 && åpar->zero)
-//		ft_write("0", ret, 1);
+}
 
-}
-/*
-static void	ft_float_pad(t_params *par, int *ret, int *a)
-{
-	if (par->minus)
-	{
-		if (!par->plus)
-			while ((*a)-- > 0)
-				ft_check_pad(par, ret);
-		else
-			while ((*a)-- > 0)
-				ft_check_pad(par, ret);
-	}
-	else
-	{
-		if (!par->plus)
-			while ((*a)-- > 0)
-				ft_check_pad(par, ret);
-		else
-			while ((*a)-- > 1)
-				ft_check_pad(par, ret);
-	}
-}
-*/
 void		ft_printf_double(t_params *par, va_list arg, int *ret, int a)
 {
 	long double	num;
@@ -120,16 +85,7 @@ void		ft_printf_double(t_params *par, va_list arg, int *ret, int a)
 		num *= -1;
 	}
 	get_double_length(num, par);
-//	if (par->space && !par->plus)
-//	{
-//		ft_write(" ", ret, 1);
-//		a--;
-//	}
-//	if (par->prec > (int)par->length)
-//		a += par->width - par->prec;
-//	else
 	a = par->width - par->length;
-//	printf("a = %zu\n", par->length);
 	if (par->error != 1 && a > 0)
 	{
 		if (par->minus)
