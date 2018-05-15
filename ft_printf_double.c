@@ -108,9 +108,12 @@ static void	ft_float_pad(t_params *par, int *ret, int *a)
 */
 void		ft_printf_double(t_params *par, va_list arg, int *ret, int a)
 {
-	double	num;
+	long double	num;
 
-	num = va_arg(arg, double);
+	if (par->mod == 'L')
+		num = va_arg(arg, long double);
+	else
+		num = (long double)va_arg(arg, double);
 	if (num < 0)
 	{
 		par->plus = '-';

@@ -359,6 +359,9 @@ printf("##################= FLOAT =##################\n\n");
 	ft_printf("\"{%10f}{%15F}\"\n", -1.42, -1.42);
 	printf("\"{%+10f}{%-15F}\"\n", 1.42, 1.42);
 	ft_printf("\"{%+10f}{%-15F}\"\n", 1.42, 1.42);
+	printf("\n");
+	printf("\"{%+10Lf}{%-15LF}\"\n", (long double)1.42, (long double)1.42);
+	ft_printf("\"{%+10Lf}{%-15LF}\"\n", (long double)1.42, (long double)1.42);
 
 
 /*
