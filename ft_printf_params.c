@@ -78,7 +78,6 @@ static void		ft_get_prec(t_params *par, va_list arg, int i)
 			while (par->str[par->index] >= '0' && par->str[par->index] <= '9')
 				par->index += 1;
 			par->prec = ft_atoi(&par->str[i + 1]);
-			par->index += 1;
 		}
 		else if (par->str[par->index] == '*')
 		{
@@ -127,7 +126,7 @@ void			ft_get_param(t_params *par, va_list arg)
 {
 	ft_get_flags(par, 0, 0);
 	ft_get_width(par, arg, 0);
-	while (!ft_strchr("hlLjtzqdiouxXDOUeEfFgGaAcCsSpn%%", par->str[par->index]))
+	if (!ft_strchr("hlLjtzqdiouxXDOUeEfFgGaAcCsSpn%%", par->str[par->index]))
 		ft_get_prec(par, arg, 0);
 	if (ft_strchr("hlLjtzq", par->str[par->index]))
 	{
