@@ -36,3 +36,9 @@ t_params	*ft_get_struct(const char *fmt)
 	par->p = 0;
 	return (par);
 }
+
+void		check_err_conv(t_params *par, const char c)
+{
+	if (!(ft_strchr("diouxXDOUeEfFgGaAcCsSpn%%", c)))
+		par->convert = 'c';
+}

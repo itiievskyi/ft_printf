@@ -23,11 +23,8 @@ void		ft_printf_string(t_params *par, va_list arg, int *ret, int a)
 {
 	if (!(par->data = ft_strdup(va_arg(arg, char*))))
 	{
-		if (!par_check_str(par))
-		{
-			par->error = 1;
+		if (!par_check_str(par) && ((par->error = 1)))
 			ft_write_string("(null)", 0, ret);
-		}
 		else
 			par->data = ft_strdup("\0");
 	}
@@ -48,6 +45,5 @@ void		ft_printf_string(t_params *par, va_list arg, int *ret, int a)
 			ft_write_string(par->data, 0, ret);
 	}
 	else if (par->error == 0)
-		ft_write_string(par->data, 0, ret);
-	free(par->data);
+		ft_write_free_string(par, 0, ret);
 }

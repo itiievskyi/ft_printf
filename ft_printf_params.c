@@ -19,8 +19,7 @@ static void		ft_get_flags(t_params *par, size_t i, size_t len)
 		len++;
 	if ((par->str)[len])
 		par->convert = (par->str)[len];
-	if (!(ft_strchr("diouxXDOUeEfFgGaAcCsSpn%%", (par->str)[len])))
-		par->convert = 'c';
+	check_err_conv(par, (par->str)[len]);
 	if (par->convert == '\0')
 		par->error = 1;
 	if (ft_strnchr(par->str, '+', len))
@@ -115,14 +114,12 @@ static void		ft_handle_conflicts(t_params *par)
 		par->space = 0;
 	if ((par->convert == 'c' || par->convert == 's') && par->mod == 'l')
 		par->convert -= 32;
-	if (par->convert == 'i')
-		par->convert = 'd';
 	if (par->convert == 'u')
 		par->plus = 0;
-	if (par->zero && par->hash && par->prec < 0 && !ft_strchr("fFo", par->convert))
+	if (par->zero && par->hash && par->prec < 0
+		&& !ft_strchr("fFo", par->convert))
 		par->prec = (int)par->width - 2;
-	if ((par->convert == 'x' || par->convert == 'X')
-		&& par->hash)
+	if (ft_strchr("Xx", par->convert) && par->hash)
 		par->zero = 0;
 }
 

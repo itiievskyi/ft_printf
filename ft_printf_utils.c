@@ -58,3 +58,11 @@ void		ft_place_int(t_params *par, int *ret, int *a, uintmax_t num)
 		ft_write("0", ret, 1);
 	ft_putnum(num, ret, par);
 }
+
+void		ft_wchar_err(int *len, int num, t_params *par, int *index)
+{
+	if (par->prec > -1 && (*len + num) > par->prec)
+		*index = -1;
+	else
+		*len += num;
+}

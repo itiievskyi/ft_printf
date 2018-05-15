@@ -24,6 +24,13 @@ void		ft_write_string(const char *s, int index, int *ret)
 		ft_write(&(s[index++]), ret, 1);
 }
 
+void		ft_write_free_string(t_params *par, int index, int *ret)
+{
+	while (par->data[index] != '\0')
+		ft_write(&(par->data[index++]), ret, 1);
+	free(par->data);
+}
+
 void		ft_write_wstring(unsigned char *s, int *ret, int len)
 {
 	write(1, s, len);
