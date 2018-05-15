@@ -119,7 +119,7 @@ static void		ft_handle_conflicts(t_params *par)
 		par->convert = 'd';
 	if (par->convert == 'u')
 		par->plus = 0;
-	if (par->zero && par->hash && par->prec < 0 && par->convert != 'o')
+	if (par->zero && par->hash && par->prec < 0 && !ft_strchr("fFo", par->convert))
 		par->prec = (int)par->width - 2;
 	if ((par->convert == 'x' || par->convert == 'X')
 		&& par->hash)
