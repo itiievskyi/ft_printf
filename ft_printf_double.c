@@ -14,9 +14,9 @@
 
 static void	get_double_length(double num, t_params *par)
 {
-	long long		flint;
+	uintmax_t		flint;
 
-	flint = (long long)num;
+	flint = (uintmax_t)num;
 	if (par->prec == -1 || (par->prec == -1 && par->hash))
 		par->prec = 6;
 	if (flint)
@@ -55,14 +55,14 @@ static void	ft_putmantissa(double num, int *ret, t_params *par)
 	{
 //		if ((double)(num * 10) - (double)((num)))
 //		{
-			printf("\nnum = %.20f\n", num);
+//			printf("\nnum = %.20f\n", num);
 			ch = ((unsigned int)(num * 10)) + '0';
-			printf("%u\n", (unsigned int)(num * 10));
+//			printf("%u\n", (unsigned int)(num * 10));
 //			printf("\nch = %u\n", ch);
-			num *= 10;
+			num *= 10 + 0.0000000000001;
 //			printf("num = %Lf\n", num);
 			num -= (unsigned int)(num);
-			printf("\nnum = %.20f\n", num);
+//			printf("\nnum = %.20f\n", num);
 			ft_write(&ch, ret, 1);
 //		}
 //		else
@@ -78,8 +78,8 @@ static void	ft_place_double(t_params *par, int *ret, int *a, double num)
 	if (par->prec > 0 || (par->prec == 0 && par->hash))
 		ft_write(".", ret, 1);
 	if (par->prec)
-		ft_putmantissa(num - (int)num, ret, par);
-//	while (par->prec-- > 0 && par->zero)
+		ft_putmantissa(num - (intmax_t)num, ret, par);
+//	while (par->prec-- > 0 && åpar->zero)
 //		ft_write("0", ret, 1);
 
 }
@@ -111,6 +111,11 @@ void		ft_printf_double(t_params *par, va_list arg, int *ret, int a)
 	double	num;
 
 	num = va_arg(arg, double);
+	if (num < 0)
+	{
+		par->plus = '-';
+		num *= -1;
+	}
 	get_double_length(num, par);
 //	if (par->space && !par->plus)
 //	{
