@@ -1,4 +1,4 @@
-# ft_printf
+# ft_printf (42 School Project)
 The goal of the project is to create a library that could replace Unix 'printf' function.
 
 The standard functions that we allowed to use are: 
